@@ -1,11 +1,26 @@
-button{
-    
-}
+
 
 header{
+    text-align: center;
     font-size: large;
 }
 
  footer{
+     width: 100%;
+     float: left;
+     align-items: center;
      font-size: small;
+ }
+
+ .column{
+     width: 50%;
+     text-align: center;
+     float: left;
+ }
+
+ .main-background-image{
+     background: url(images/money.jpg);
+     background-repeat: no-repeat;
+     background-size: cover;
+     color: red;
  }
