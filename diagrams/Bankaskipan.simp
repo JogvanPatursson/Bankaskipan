@@ -5,7 +5,7 @@
     <authors>Jogvan Patursson</authors>
     <description>ER Diagram til SQL Bankaskipan. Jogvan, Brandur &amp; Bartal.</description>
   </meta>
-  <counters diagrams="1" models="1">
+  <counters diagrams="2" models="1">
     <entity-names>
       <counter>
         <item-type type-id="erd-chen-entity" type="Entity" />
@@ -13,7 +13,7 @@
       </counter>
       <counter>
         <item-type type-id="idef1x-entity" type="Entity" />
-        <value>5</value>
+        <value>13</value>
       </counter>
       <counter>
         <item-type type-id="erd-chen-relationship" type="Relationship" />
@@ -23,11 +23,15 @@
         <item-type type-id="drawing-line" type="Line" />
         <value>1</value>
       </counter>
+      <counter>
+        <item-type type-id="element-detail" type="Element Detail" />
+        <value>1</value>
+      </counter>
     </entity-names>
     <entity-ids>
       <counter>
         <item-type type-id="group" type="Group" />
-        <value>398</value>
+        <value>645</value>
       </counter>
       <counter>
         <item-type type-id="erd-chen-entity" type="Entity" />
@@ -35,11 +39,11 @@
       </counter>
       <counter>
         <item-type type-id="idef1x-entity" type="Entity" />
-        <value>6</value>
+        <value>14</value>
       </counter>
       <counter>
         <item-type type-id="erd-chen-relationship" type="Relationship" />
-        <value>10</value>
+        <value>11</value>
       </counter>
       <counter>
         <item-type type-id="universal-connector" type="Universal Connector" />
@@ -51,7 +55,15 @@
       </counter>
       <counter>
         <item-type type-id="idef1x-relationship" type="Relationship" />
-        <value>9</value>
+        <value>12</value>
+      </counter>
+      <counter>
+        <item-type type-id="element-detail" type="Element Detail" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="comment-connector" type="Comment Connector" />
+        <value>2</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -63,13 +75,24 @@
     <fields>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Erd.ErdEntityAttribute</type>
-        <value>13</value>
+        <value>37</value>
       </counter>
     </fields>
   </counters>
   <alias-groups />
   <management uid="md-1b3a3a63aca7443383ca5eb27b992488" name="" task-id-sequence="0">
+    <working-schedule uid="ws-697a64e3a63347c28a68aa0d6784c110" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
     <persons>
+      <person id="">
+        <first-name>Jogvan</first-name>
+        <last-name>Patursson</last-name>
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+        <working-schedule uid="ws-de32b834aa4346819230d1edf5deb646" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
       <person id="">
         <first-name>Jogvan</first-name>
         <last-name>Patursson</last-name>
@@ -109,40 +132,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="chen-entity-relationship" id="pcbc026b9de0248c499e16246d24e8624_915136588" name="ChenERDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default">
-        <style>
-          <background-color index="1" color="#FFFFFFFF" />
-          <background-color index="2" color="#FFFFFFFF" />
-          <background-type type="solid" />
-        </style>
-        <meta>
-          <authors>
-            <author> </author>
-          </authors>
-          <description />
-          <creation-date>04/29/2021 14:44:26</creation-date>
-          <change-date>04/29/2021 14:56:38</change-date>
-          <revision-count>0</revision-count>
-          <version />
-        </meta>
-        <abstract-items>
-          <item id="e383efc8c3714ebeb4e07d44cbcd906a" cid="ENT001" type="erd-chen-entity" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:44:45">
-            <erd-chen-entity type="standard" />
-          </item>
-          <item id="5df21ff9ad5945558e50a7dde5f2484a" cid="REL001" type="erd-chen-relationship" name="Relationship1" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
-            <erd-chen-relationship type="standard" />
-          </item>
-        </abstract-items>
-        <layer id="8ca2c307bcbd459c86526b8034a1ba64" name="Default" visible="true" enabled="true" locked="false">
-          <item id="e383efc8c3714ebeb4e07d44cbcd906a" iid="47ff5f7e6c414d2fbd4d3703f80dfd6f" creation-date="04/29/2021 14:44:45" order-index="0" type="entity">
-            <layout ax="306" ay="74" awidth="120" aheight="70" x="306" y="74" width="120" height="70" />
-          </item>
-          <item id="5df21ff9ad5945558e50a7dde5f2484a" iid="e508d7a52e0945f4a55c7b3a32fe3422" creation-date="04/29/2021 14:56:38" order-index="1" type="entity">
-            <layout ax="74" ay="260" awidth="120" aheight="70" x="74" y="260" width="120" height="70" />
-          </item>
-        </layer>
-      </diagram>
-      <diagram type="entity-relationship-idef1x" id="p12b27af123ab4e85a56ea1de22154c44_353439951" name="Diagram1" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-142,-267" zoom="0.7">
+      <diagram type="entity-relationship-idef1x" id="p12b27af123ab4e85a56ea1de22154c44_353439951" name="ER-Diagram" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-601,-166" zoom="0.9">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -154,18 +144,20 @@
           </authors>
           <description />
           <creation-date>04/29/2021 14:45:52</creation-date>
-          <change-date>04/29/2021 15:33:11</change-date>
+          <change-date>05/03/2021 13:44:21</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="2922991b9b9c4d38a2a9ef3738154d60" cid="ENT002" type="idef1x-entity" name="Person" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:45:56">
+          <item id="2922991b9b9c4d38a2a9ef3738154d60" cid="ENT002" type="idef1x-entity" name="Customer" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:45:56">
             <idef1x-entity dependant="false" description="">
               <attributes>
-                <attribute uid="a1da2fbbd33bd46fc908210b2681c6026622" cid="EA001" name="person_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:46:37" />
-                <attribute uid="a70ee129372cd405a99ea026aa7838fcd682" cid="EA002" name="name" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:47:10" />
-                <attribute uid="ac19ec96eaab04a64ba8f23e41750aa90878" cid="EA003" name="date_of_birth" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:47:57" />
-                <attribute uid="ae7e0a3950c384c9c850c7d264be75c8c375" cid="EA004" name="age()" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:48:15" />
+                <attribute uid="a1da2fbbd33bd46fc908210b2681c6026622" cid="EA001" name="customer_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:46:37" />
+                <attribute uid="a70ee129372cd405a99ea026aa7838fcd682" cid="EA002" name="customer_first_name" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:47:10" />
+                <attribute uid="ac19ec96eaab04a64ba8f23e41750aa90878" cid="EA003" name="date_of_birth" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:47:57" />
+                <attribute uid="ae7e0a3950c384c9c850c7d264be75c8c375" cid="EA004" name="age()" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:48:15" />
+                <attribute uid="a4911bf05e7474f0692d2ca15a90ba44b91" cid="EA022" name="customer_last_name" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:14:37" />
+                <attribute uid="a955ab0b7d30a474fa56d6c5bb9d0c639458" cid="EA023" name="customer_address" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:15:01" />
               </attributes>
             </idef1x-entity>
           </item>
@@ -173,8 +165,8 @@
             <idef1x-entity dependant="false" description="">
               <attributes>
                 <attribute uid="a45df13137b6643659665f8b9909b5fd6871" cid="EA005" name="account_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:49:55" />
-                <attribute uid="ab4e69ef92d3e48c2bb570a5f4fa8f5fb275" cid="EA006" name="account_type" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:50:06" />
-                <attribute uid="a3c79cadb3fe348df995a1cf7b27a2fe758" cid="EA007" name="balance" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:52:54" />
+                <attribute uid="ab4e69ef92d3e48c2bb570a5f4fa8f5fb275" cid="EA006" name="account_type" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:50:06" />
+                <attribute uid="a3c79cadb3fe348df995a1cf7b27a2fe758" cid="EA007" name="balance" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 14:52:54" />
               </attributes>
             </idef1x-entity>
           </item>
@@ -201,7 +193,7 @@
             <erd-chen-relationship type="standard" />
           </item>
           <item id="73fbaad07e7a42338268f5ba9a7abc9f" cid="REL008" type="idef1x-relationship" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:06:57" from="di33634118e31149b8b90e721005bd717d8553" to="e0bc3304af2e4d2cbaf2f86d2122114c">
-            <idef1x-relation identifying="true" multiplicity-from="1" multiplicity-to="1-2">
+            <idef1x-relation identifying="true" multiplicity-from="1" multiplicity-to="2">
               <attribute-pairs>
                 <attribute-pair from-attribute="" to-attribute="" />
               </attribute-pairs>
@@ -217,57 +209,83 @@
           <item id="did2ae9f857d5842588dec646a60849cd83719" cid="REL005" type="erd-chen-relationship" name="spouse" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
             <erd-chen-relationship type="standard" />
           </item>
-          <item id="d731257d4d0a4effb085c5fafaca1bd8" cid="ELEM004" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:04" from="0f06f830efa64dd0a3986bb51a59f145" to="2922991b9b9c4d38a2a9ef3738154d60">
+          <item id="d731257d4d0a4effb085c5fafaca1bd8" cid="ELEM004" type="universal-connector" name="Parent" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:04" from="di68b95066fd2649da8f5e8d7f9be3b5c52930" to="2922991b9b9c4d38a2a9ef3738154d60">
             <connector />
           </item>
-          <item id="0f06f830efa64dd0a3986bb51a59f145" cid="REL009" type="erd-chen-relationship" name="parent_child" style-class="" change-tracking-state="added" creator="" creation-date="04/25/2021 16:58:13">
-            <style style-name="Custom" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="rounded" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" colors="#FFFFFFFF,#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="rounded" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" colors="#FF1E90FF,#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <erd-chen-relationship type="weak" />
+          <item id="499dd6c127a64da4a02b1907519d2258" cid="ENT013" type="idef1x-entity" name="Account Type" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:39:21">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="abff215a0499641b284445ca4001cc0ed684" cid="EA034" name="account_type_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:40:16" />
+                <attribute uid="a72bf5ed98ccf490d9f771a574d4f15b5691" cid="EA035" name="interest_rate_name" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:40:51" />
+                <attribute uid="ae844b9f0caea4c76951aa2f24c8c68bf347" cid="EA036" name="interest_rate_value" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:41:49" />
+              </attributes>
+            </idef1x-entity>
           </item>
-          <item id="e9c5a2fd6ddf4e69ad6db8d72635e2a2" cid="ELEM005" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:25" from="2922991b9b9c4d38a2a9ef3738154d60" to="0f06f830efa64dd0a3986bb51a59f145">
+          <item id="e9c5a2fd6ddf4e69ad6db8d72635e2a2" cid="ELEM005" type="universal-connector" name="Child" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:25" from="2922991b9b9c4d38a2a9ef3738154d60" to="di68b95066fd2649da8f5e8d7f9be3b5c52930">
             <connector />
           </item>
-          <item id="eb0cf95f6eb241a99896b3697b9d4f34" cid="ELEM006" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:54" from="did2ae9f857d5842588dec646a60849cd83719" to="2922991b9b9c4d38a2a9ef3738154d60">
+          <item id="eb0cf95f6eb241a99896b3697b9d4f34" cid="ELEM006" type="universal-connector" name="Spouse 1" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:18:54" from="did2ae9f857d5842588dec646a60849cd83719" to="2922991b9b9c4d38a2a9ef3738154d60">
             <connector />
           </item>
-          <item id="286431b05bed4db5829b4a2e0a6bee75" cid="ELEM007" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:19:23" from="2922991b9b9c4d38a2a9ef3738154d60" to="did2ae9f857d5842588dec646a60849cd83719">
+          <item id="286431b05bed4db5829b4a2e0a6bee75" cid="ELEM007" type="universal-connector" name="Spouse 2" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:19:23" from="2922991b9b9c4d38a2a9ef3738154d60" to="did2ae9f857d5842588dec646a60849cd83719">
             <connector />
           </item>
           <item id="5da6c61dba014cfba0e9f371472a3f9a" cid="ENT005" type="idef1x-entity" name="Cash Draft" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:26:00">
             <idef1x-entity dependant="false" description="">
               <attributes>
                 <attribute uid="af16f332e6fbe4bfeafcdcd21394eeaa2149" cid="EA011" name="transaction_id" type="" type-id="" type-size="" foreign-key="true" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="04/29/2021 15:33:43" />
+                <attribute uid="a797d10658d5340539128f76760d38c29383" cid="EA015" name="transaction_date" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:09:36" />
+                <attribute uid="a07c745a8850e4b06902a316ebb848bc259" cid="EA017" name="transaction_amount" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:10:13" />
               </attributes>
             </idef1x-entity>
           </item>
           <item id="6ec4b14954b3484dbabd873d45a81a12" cid="ELEM008" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 15:33:11" from="5da6c61dba014cfba0e9f371472a3f9a" to="2f1111535b6f456a8699f03df00558b7">
             <connector />
           </item>
+          <item id="60bbe861da47441ea636537e5c14a5ab" cid="ENT009" type="idef1x-entity" name="Employee" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:11:40">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="a476e3829a2974872aadd994dff0aaaa7989" cid="EA018" name="employee_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:12:13" />
+                <attribute uid="a65916b77d7db41d5810ce0f7a788430e773" cid="EA019" name="employee_name" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:12:25" />
+                <attribute uid="a19500bfcad614ca3943841664e25c379499" cid="EA020" name="employee_salary" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:12:41" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="e7e3468b5204448584fd8a37b081b4eb" cid="ENT010" type="idef1x-entity" name="Zipcode" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:14:47">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="a7eea19afb0694868a105cd44ae61f274603" cid="EA024" name="zipcode" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:15:58" />
+                <attribute uid="a15d93092833e47dca8626e8cc8818622767" cid="EA025" name="town" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:16:41" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="f433258332be4c4580bde108238818ae" cid="ENT011" type="idef1x-entity" name="Address" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:18:00">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="a787dc75492d44c5ebc5f8b3d29edbe53452" cid="EA026" name="address_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:18:42" />
+                <attribute uid="a8d05f654d5824107ad1032b82bce26f3202" cid="EA027" name="street" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:18:58" />
+                <attribute uid="a07668e37b1f9425fb06b2c57bd7de744585" cid="EA028" name="street_number" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:19:06" />
+                <attribute uid="ad3dcab33ecbb44e69f1b5d785fd2ab95862" cid="EA029" name="apartment_number" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:19:25" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="642b90bdb0c04e399d0e517d3bf7c78b" cid="ENT012" type="idef1x-entity" name="Config" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:24:31">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="a2b575268da0a41ef8259ad6b6e0e1c43992" cid="EA030" name="config_id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="1" auto-increment="false" creation-date="05/03/2021 13:25:42" />
+                <attribute uid="a38b323a8b5a5489287806d5ff6d1d1b049" cid="EA031" name="bank_name" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:25:56" />
+                <attribute uid="a18039b8f74c94c9fb7a46f8473b68bb4195" cid="EA032" name="bank_registration_number" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:26:07" />
+                <attribute uid="a166ef6370f2b4b3297afdfa4febca37f453" cid="EA033" name="bank_balance_account" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:26:26" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="di68b95066fd2649da8f5e8d7f9be3b5c52930" cid="REL010" type="erd-chen-relationship" name="parent_child" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
+            <erd-chen-relationship type="standard" />
+          </item>
         </abstract-items>
         <layer id="c2c3743f854c4cd2a703436285064687" name="Default" visible="true" enabled="true" locked="false">
           <item id="2922991b9b9c4d38a2a9ef3738154d60" iid="0c752441c7cb4ea0865fa44f65b4dde2" creation-date="04/29/2021 14:45:56" order-index="0" type="entity">
-            <layout ax="-63" ay="144" awidth="171" aheight="160" x="-63" y="144" width="140" height="160" />
+            <layout ax="-63" ay="144" awidth="184.5" aheight="160" x="-63" y="144" width="184.5" height="160" rotation-center="21.5,0" />
             <idef1x-entity show-nullability="true" show-types="false" />
           </item>
           <item id="e0bc3304af2e4d2cbaf2f86d2122114c" iid="90a697e32dc94b6b9fcae6ef1a05898d" creation-date="04/29/2021 14:49:19" order-index="1" type="entity">
@@ -282,10 +300,10 @@
             <layout ax="276" ay="181.5" awidth="140" aheight="85" x="276" y="181.5" width="140" height="85" rotation-center="-10,-7.5" />
           </item>
           <item id="d52e10c664ff43868a78c09d56d19397" iid="5a3fe539e21246a986fdfbe31188cf4e" creation-date="04/29/2021 14:58:24" order-index="3" type="relation">
-            <layout line-style="oblique" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="276" y1="224" x2="108" y2="224" start-border-pos="0.875" end-border-pos="0.375" start-local-pos="35" end-local-pos="80" name-position="0,20">
+            <layout line-style="oblique" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="276" y1="224" x2="122" y2="224" start-border-pos="0.875" end-border-pos="0.375" start-local-pos="35" end-local-pos="80" name-position="0,20">
               <points>
                 <point x="276" y="224" />
-                <point x="108" y="224" />
+                <point x="122" y="224" />
               </points>
             </layout>
             <relation from="di27b5ad4315e44be9b15e7d8a20ca7bf22241" from-iid="3afd657837b7418bb35c133787088825" to="2922991b9b9c4d38a2a9ef3738154d60" to-iid="0c752441c7cb4ea0865fa44f65b4dde2" />
@@ -323,31 +341,28 @@
           <item id="did2ae9f857d5842588dec646a60849cd83719" iid="d15c0029c95c42b1bb71c7b85cfcfe5d" creation-date="04/29/2021 14:56:38" order-index="1" type="entity">
             <layout ax="-47.5" ay="377.5" awidth="140" aheight="77.5" x="-47.5" y="377.5" width="140" height="77.5" rotation-center="-10,-3.75" />
           </item>
-          <item id="0f06f830efa64dd0a3986bb51a59f145" iid="3c2229328ef64c4c8ebe6803f70fbd6c" creation-date="04/25/2021 16:58:13" order-index="10" type="entity">
-            <layout ax="-289" ay="203" awidth="140" aheight="85" x="-289" y="203" width="140" height="85" rotation-center="-10,-7.5" />
-          </item>
           <item id="d731257d4d0a4effb085c5fafaca1bd8" iid="fa4cbe09c0964165b7fb7fb04c53dd82" creation-date="04/29/2021 15:18:04" order-index="11" type="relation">
-            <layout line-style="oblique" start-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-219" y1="203" x2="-63" y2="182" start-border-pos="0.125" end-border-pos="0.94140625" start-local-pos="70" end-local-pos="38" name-position="0,20">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-218" y1="207" x2="-63" y2="182" start-border-pos="0.124107144773006" end-border-pos="0.94140625" start-local-pos="69.5" end-local-pos="38" name-position="57,-22">
               <points>
-                <point x="-219" y="203" />
+                <point x="-218" y="207" />
                 <point x="-219" y="181.5" />
                 <point x="-63" y="182" />
               </points>
             </layout>
-            <relation from="0f06f830efa64dd0a3986bb51a59f145" from-iid="3c2229328ef64c4c8ebe6803f70fbd6c" to="2922991b9b9c4d38a2a9ef3738154d60" to-iid="0c752441c7cb4ea0865fa44f65b4dde2" />
+            <relation from="di68b95066fd2649da8f5e8d7f9be3b5c52930" from-iid="1a50d878427d406388a1e0d04efa90ec" to="2922991b9b9c4d38a2a9ef3738154d60" to-iid="0c752441c7cb4ea0865fa44f65b4dde2" />
           </item>
           <item id="e9c5a2fd6ddf4e69ad6db8d72635e2a2" iid="26fa22c511d340b4a5d00883ab385000" creation-date="04/29/2021 15:18:25" order-index="12" type="relation">
-            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-63" y1="304" x2="-219" y2="288" start-border-pos="0.75" end-border-pos="0.625" start-local-pos="160" end-local-pos="70" name-position="0,20">
+            <layout line-style="oblique" start-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-63" y1="304" x2="-218" y2="284" start-border-pos="0.75" end-border-pos="0.625892862677574" start-local-pos="160" end-local-pos="69.5" name-position="53,-20">
               <points>
                 <point x="-63" y="304" />
                 <point x="-218" y="305" />
-                <point x="-219" y="288" />
+                <point x="-218" y="284" />
               </points>
             </layout>
-            <relation from="2922991b9b9c4d38a2a9ef3738154d60" from-iid="0c752441c7cb4ea0865fa44f65b4dde2" to="0f06f830efa64dd0a3986bb51a59f145" to-iid="3c2229328ef64c4c8ebe6803f70fbd6c" />
+            <relation from="2922991b9b9c4d38a2a9ef3738154d60" from-iid="0c752441c7cb4ea0865fa44f65b4dde2" to="di68b95066fd2649da8f5e8d7f9be3b5c52930" to-iid="1a50d878427d406388a1e0d04efa90ec" />
           </item>
           <item id="eb0cf95f6eb241a99896b3697b9d4f34" iid="1ce2901dfbe9440b93be4cc1451234cc" creation-date="04/29/2021 15:18:54" order-index="13" type="relation">
-            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-47" y1="416" x2="-63" y2="304" start-border-pos="0.875806450843811" end-border-pos="0.75" start-local-pos="38.5" end-local-pos="160" name-position="0,20">
+            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-47" y1="416" x2="-63" y2="304" start-border-pos="0.875806450843811" end-border-pos="0.75" start-local-pos="38.5" end-local-pos="160" name-position="36,-48">
               <points>
                 <point x="-47" y="416" />
                 <point x="-62" y="416" />
@@ -357,27 +372,102 @@
             <relation from="did2ae9f857d5842588dec646a60849cd83719" from-iid="d15c0029c95c42b1bb71c7b85cfcfe5d" to="2922991b9b9c4d38a2a9ef3738154d60" to-iid="0c752441c7cb4ea0865fa44f65b4dde2" />
           </item>
           <item id="286431b05bed4db5829b4a2e0a6bee75" iid="93c0be553cfe4796bf6d6a028f653c55" creation-date="04/29/2021 15:19:23" order-index="14" type="relation">
-            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="108" y1="304" x2="92" y2="416" start-border-pos="0.5" end-border-pos="0.374193549156189" start-local-pos="160" end-local-pos="38.5" name-position="0,20">
+            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="122" y1="304" x2="92" y2="416" start-border-pos="0.5" end-border-pos="0.374193549156189" start-local-pos="160" end-local-pos="38.5" name-position="43,-57">
               <points>
-                <point x="108" y="304" />
-                <point x="108" y="416" />
+                <point x="122" y="304" />
+                <point x="123" y="415" />
                 <point x="92" y="416" />
               </points>
             </layout>
             <relation from="2922991b9b9c4d38a2a9ef3738154d60" from-iid="0c752441c7cb4ea0865fa44f65b4dde2" to="did2ae9f857d5842588dec646a60849cd83719" to-iid="d15c0029c95c42b1bb71c7b85cfcfe5d" />
           </item>
           <item id="5da6c61dba014cfba0e9f371472a3f9a" iid="126a9e4a689e4aebaaeb27945ca12ba6" creation-date="04/29/2021 15:26:00" order-index="15" type="entity">
-            <layout ax="1260" ay="-74" awidth="140" aheight="85" x="1260" y="-74" width="140" height="85" rotation-center="0,37.5" />
+            <layout ax="1226.5" ay="-91" awidth="207" aheight="160" x="1226.5" y="-91" width="140" height="160" rotation-center="0,3" />
             <idef1x-entity show-nullability="true" show-types="false" />
           </item>
           <item id="6ec4b14954b3484dbabd873d45a81a12" iid="53051257c6c6443f89915fdaa737ad2c" creation-date="04/29/2021 15:33:11" order-index="16" type="relation">
-            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1330" y1="11" x2="1330" y2="144" start-border-pos="0.625" end-border-pos="0.125" start-local-pos="70" end-local-pos="70" name-position="0,20">
+            <layout line-style="oblique" start-auto-side="false" end-auto-side="false" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1330" y1="69" x2="1330" y2="144" start-border-pos="0.625" end-border-pos="0.125" start-local-pos="70" end-local-pos="70" name-position="0,20">
               <points>
-                <point x="1330" y="11" />
+                <point x="1330" y="69" />
                 <point x="1330" y="144" />
               </points>
             </layout>
             <relation from="5da6c61dba014cfba0e9f371472a3f9a" from-iid="126a9e4a689e4aebaaeb27945ca12ba6" to="2f1111535b6f456a8699f03df00558b7" to-iid="2bc0273908fc4d4eaa50987332683672" />
+          </item>
+          <item id="60bbe861da47441ea636537e5c14a5ab" iid="ff8bc666b1204f0299f8c853d0fcaa98" creation-date="05/03/2021 13:11:40" order-index="17" type="entity">
+            <layout ax="276" ay="-137" awidth="182" aheight="160" x="276" y="-137" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="e7e3468b5204448584fd8a37b081b4eb" iid="cb098e6977ae403eb5bdf75054198934" creation-date="05/03/2021 13:14:47" order-index="18" type="entity">
+            <layout ax="-336" ay="-137" awidth="140" aheight="160" x="-336" y="-137" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="f433258332be4c4580bde108238818ae" iid="bc9b2e3377ef43b1a1cd468a2b0dcf7b" creation-date="05/03/2021 13:18:00" order-index="19" type="entity">
+            <layout ax="-76.5" ay="-137" awidth="198" aheight="160" x="-76.5" y="-137" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="642b90bdb0c04e399d0e517d3bf7c78b" iid="55059f42a37144b9a4f431fa2a22e74e" creation-date="05/03/2021 13:24:31" order-index="20" type="entity">
+            <layout ax="538.5" ay="-137" awidth="239" aheight="160" x="538.5" y="-137" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="di68b95066fd2649da8f5e8d7f9be3b5c52930" iid="1a50d878427d406388a1e0d04efa90ec" creation-date="04/29/2021 14:56:38" order-index="1" type="entity">
+            <layout ax="-287.5" ay="207.5" awidth="140" aheight="77.5" x="-287.5" y="207.5" width="140" height="77.5" rotation-center="-10,-3.75" />
+          </item>
+          <item id="499dd6c127a64da4a02b1907519d2258" iid="9003507ebeeb4ac78c7e16050d1a9bb8" creation-date="05/03/2021 13:39:21" order-index="21" type="entity">
+            <layout ax="588" ay="377.5" awidth="140" aheight="160" x="588" y="377.5" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+        </layer>
+      </diagram>
+      <diagram type="entity-relationship-idef1x" id="pd038a4debf574360a89b115a72453255_675250077" name="Table-Diagram" order-index="3" overview-order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-150,0">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>05/03/2021 12:51:46</creation-date>
+          <change-date>05/03/2021 13:04:00</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="2aeb60257f734cddba1875c767501a06" cid="ENT006" type="idef1x-entity" name="Person" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 12:52:30">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="a13000fd5daf74618b71ff0f76598bc6a681" cid="EA013" name="person_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:04:57" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="929f78e121184b5197c9393649ae2654" cid="ENT007" type="idef1x-entity" name="Account" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:00:21">
+            <idef1x-entity dependant="false" description="">
+              <attributes>
+                <attribute uid="aa71f1f9108da47a0b24712d17fc176c3153" cid="EA014" name="account_id" type="" type-id="" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/03/2021 13:05:15" />
+              </attributes>
+            </idef1x-entity>
+          </item>
+          <item id="e8fa9bd4ef1349e4a0a93ff290910706" cid="ENT008" type="idef1x-entity" name="Transactions" style-class="" change-tracking-state="added" creator="" creation-date="05/03/2021 13:04:00">
+            <idef1x-entity dependant="false" description="">
+              <attributes />
+            </idef1x-entity>
+          </item>
+        </abstract-items>
+        <layer id="b801fcbcc41a49c5b9377611292273ca" name="Default" visible="true" enabled="true" locked="false">
+          <item id="2aeb60257f734cddba1875c767501a06" iid="e18f97d859484beeb877a3d2acfa2fd6" creation-date="05/03/2021 12:52:30" order-index="0" type="entity">
+            <layout ax="22" ay="73" awidth="140" aheight="160" x="22" y="73" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="929f78e121184b5197c9393649ae2654" iid="2a52eb4d2f164b2cad5093c6ddd737bb" creation-date="05/03/2021 13:00:21" order-index="1" type="entity">
+            <layout ax="277" ay="73" awidth="140" aheight="160" x="277" y="73" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
+          </item>
+          <item id="e8fa9bd4ef1349e4a0a93ff290910706" iid="b1ccb5cd10114cceab3325301c7ca707" creation-date="05/03/2021 13:04:00" order-index="2" type="entity">
+            <layout ax="546" ay="73" awidth="140" aheight="160" x="546" y="74" width="140" height="160" />
+            <idef1x-entity show-nullability="true" show-types="false" />
           </item>
         </layer>
       </diagram>
