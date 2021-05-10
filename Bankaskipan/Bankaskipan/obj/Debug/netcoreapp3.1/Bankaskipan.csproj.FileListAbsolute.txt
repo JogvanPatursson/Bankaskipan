@@ -104,3 +104,4 @@ C:\code\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.
 C:\code\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.csproj.CopyComplete
 C:\code\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\code\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+C:\code\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\libman.json

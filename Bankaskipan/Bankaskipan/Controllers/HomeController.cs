@@ -12,5 +12,7 @@ namespace Bankaskipan.Controllers
         {
             return View();
         }
+
+        
     }
 }

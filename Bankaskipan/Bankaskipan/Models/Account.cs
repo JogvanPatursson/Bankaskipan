@@ -7,6 +7,8 @@ namespace Bankaskipan.Models
 {
     public class Account
     {
-
+        public long account_id { get; set; }
+        public float balance { get; set; }
+        public string type { get; set; }
     }
 }
