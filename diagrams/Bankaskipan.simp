@@ -31,7 +31,7 @@
     <entity-ids>
       <counter>
         <item-type type-id="group" type="Group" />
-        <value>1683</value>
+        <value>1691</value>
       </counter>
       <counter>
         <item-type type-id="erd-chen-entity" type="Entity" />
@@ -125,6 +125,16 @@
         <phone-number />
         <description />
         <color>#00000000</color>
+        <working-schedule uid="ws-e3ff05cee150423fa11c28e2e6be0f30" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
+      <person id="">
+        <first-name>Jogvan</first-name>
+        <last-name>Patursson</last-name>
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
       </person>
     </persons>
     <teams />
@@ -156,7 +166,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="entity-relationship-idef1x" id="p12b27af123ab4e85a56ea1de22154c44_353439951" name="ER-Diagram" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-296,-456" zoom="0.5">
+      <diagram type="entity-relationship-idef1x" id="p12b27af123ab4e85a56ea1de22154c44_353439951" name="ER-Diagram" order-index="2" overview-order-index="0" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-296,-98" zoom="0.5">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -321,9 +331,9 @@
                 <attribute uid="a662946f8c6ec4b7a83a869dc785930ca382" cid="EA046" name="person_first_name" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:16:07" />
                 <attribute uid="ac1c20a79f45641b6a8d287a1be71fc5c188" cid="EA047" name="person_last_name" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:16:14" />
                 <attribute uid="aaf680e4305b74a8185ae4b12e83a86a2248" cid="EA048" name="date_of_birth" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:16:33" />
-                <attribute uid="a34a9f6e6431843a0aec6235e44d9162c802" cid="EA049" name="street" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:18:51" />
-                <attribute uid="a8791c757f0b4444498674b335ab961d7809" cid="EA050" name="street_number" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:19:01" />
-                <attribute uid="a4a64f8e330d547fda7ac64001539f7fe664" cid="EA051" name="apartment_number" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:19:08" />
+                <attribute uid="a34a9f6e6431843a0aec6235e44d9162c802" cid="EA049" name="street" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:18:51" />
+                <attribute uid="a8791c757f0b4444498674b335ab961d7809" cid="EA050" name="street_number" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:19:01" />
+                <attribute uid="a4a64f8e330d547fda7ac64001539f7fe664" cid="EA051" name="apartment_number" type="" type-id="" type-size="" foreign-key="false" primary-key="false" nullable="false" description="" default-value="" auto-increment="false" creation-date="05/10/2021 12:19:08" />
               </attributes>
             </idef1x-entity>
           </item>
@@ -346,10 +356,10 @@
           <item id="e8aeac1bf80847aba8cc73d61d1c5b1e" cid="ELEM033" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="05/06/2021 15:14:59" from="3b139e23837d44c0b40afa962e0c76e5" to="5da6c61dba014cfba0e9f371472a3f9a">
             <connector />
           </item>
-          <item id="di9f3350566b8e4272a20cec523fcee63e6503" cid="REL023" type="erd-chen-relationship" name="is" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
+          <item id="di9f3350566b8e4272a20cec523fcee63e6503" cid="REL023" type="erd-chen-relationship" name="is a" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
             <erd-chen-relationship type="standard" />
           </item>
-          <item id="di21211ab2332740d1b1baf7cd7ff3ccff6111" cid="REL024" type="erd-chen-relationship" name="is" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
+          <item id="di21211ab2332740d1b1baf7cd7ff3ccff6111" cid="REL024" type="erd-chen-relationship" name="is a" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
             <erd-chen-relationship type="standard" />
           </item>
           <item id="di64d827fe49054ed0aa644f966160dfc78136" cid="ELEM034" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:58:24" from="di21211ab2332740d1b1baf7cd7ff3ccff6111" to="4f84ddfdbe92478a93b0352981618271">
@@ -364,7 +374,7 @@
           <item id="di36b9c5f00ab1450db5b3a0268a000beb3219" cid="ELEM037" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:58:43" from="di9f3350566b8e4272a20cec523fcee63e6503" to="60bbe861da47441ea636537e5c14a5ab">
             <connector />
           </item>
-          <item id="di40931a9334b44ec6a55f8d7e221cfb653345" cid="REL025" type="erd-chen-relationship" name="has" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
+          <item id="di40931a9334b44ec6a55f8d7e221cfb653345" cid="REL025" type="erd-chen-relationship" name="has a" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:56:38">
             <erd-chen-relationship type="standard" />
           </item>
           <item id="diedca379a4acc4f019594c5ba983154822081" cid="ELEM038" type="universal-connector" name="" style-class="" change-tracking-state="added" creator="" creation-date="04/29/2021 14:58:24" from="di40931a9334b44ec6a55f8d7e221cfb653345">
