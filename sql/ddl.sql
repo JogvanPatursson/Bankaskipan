@@ -1,7 +1,7 @@
 -----------------------------------
 ---------SQL DATABASE--------------
 -----------------------------------
------------DOGECOIN----------------
+-----------DOGEBANK----------------
 -----------------------------------
 ------------GROUP 7----------------
 -----------------------------------
@@ -11,10 +11,10 @@
 --Create Person table--
 CREATE TABLE Person(
     person_id int NOT NULL PRIMARY KEY,
-    person_first_name varchar NOT NULL,
-    person_last_name varchar NOT NULL,
+    person_first_name varchar(255) NOT NULL,
+    person_last_name varchar(255) NOT NULL,
     date_of_birth datetime NOT NULL,
-    street_name varchar NOT NULL,
+    street_name varchar(255) NOT NULL,
     street_number int NOT NULL,
     apartment_number int,
     zipcode int NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE Person(
 --Create Zipcode table--
 CREATE TABLE Zipcode(
     zipcode int NOT NULL PRIMARY KEY,
-    town varchar NOT NULL
+    town varchar(255) NOT NULL
     );
 
 --Create Personal Number table--
@@ -47,7 +47,7 @@ CREATE TABLE Spouse(
 --Create Customer table--
 CREATE TABLE Customer(
     customer_id int NOT NULL PRIMARY KEY,
-    customer_type varchar NOT NULL,
+    customer_type varchar(255) NOT NULL,
     person_id int NOT NULL
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE CustomerHasAccount(
 --Create Employee table--
 CREATE TABLE Employee(
     employee_id int NOT NULL PRIMARY KEY,
-    employee_name varchar NOT NULL,
+    employee_name varchar(255) NOT NULL,
     employee_salary int NOT NULL,
     person_id int NOT NULL
 );
@@ -87,7 +87,7 @@ CREATE TABLE TransactionStoredInCashDraft(
 --Create Transaction table--
 CREATE TABLE Transaction(
     transaction_id int NOT NULL PRIMARY KEY,
-    transaction_type varchar NOT NULL,
+    transaction_type varchar(255) NOT NULL,
     transaction_time datetime NOT NULL,
     transaction_amount int NOT NULL
 );
@@ -95,7 +95,7 @@ CREATE TABLE Transaction(
 --Create Account table--
 CREATE TABLE Account(
     account_id int NOT NULL PRIMARY KEY,
-    account_type varchar NOT NULL,
+    account_type varchar(255) NOT NULL,
     balance int NOT NULL
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE AccountPerformsTransaction(
 --Create Account Type  table--
 CREATE TABLE AccountType(
     account_type_id int NOT NULL,
-    interest_rate_name varchar NOT NULL,
+    interest_rate_name varchar(255) NOT NULL,
     interest_rate_value int NOT NULL,
     account_id int NOT NULL
 );
