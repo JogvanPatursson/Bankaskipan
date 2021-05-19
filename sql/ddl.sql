@@ -6,7 +6,7 @@
 ------------GROUP 7----------------
 -----------------------------------
 
----------Create tables-----------
+----------Create Tables------------
 
 --Create Person table--
 CREATE TABLE Person(
