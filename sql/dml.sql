@@ -73,7 +73,14 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
 
 --Show all accounts of child--
 CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255))
-
+    SELECT account_id
+    FROM CustomerHasAccount
+    WHERE customer_id = child_id_variable;
 
 --Show all accounts of spouse--
-CREATE OR REPLACE FUNCTION
+CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
+    SELECT account_id
+    FROM CustomerHasAccount
+    WHERE customer_id = spouse_2_id_variable;
+
+----
