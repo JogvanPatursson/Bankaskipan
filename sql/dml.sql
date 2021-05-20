@@ -122,8 +122,20 @@ CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable number, account_i
     WHERE account_id = account_id_2_variable;
 
 --Deposit money--
-CREATE OR REPLACE FUNCTION depositMoney()
+CREATE OR REPLACE FUNCTION depositMoney(account_id_variable number, amount_variable number)
+    IF (checkIfPositive(amount_variable) == 1)
+        UPDATE Account
+        SET balance = balance + amount_variable
+        WHERE account_id = account_id_variable
 
+    ELSE
+        --Something?
 
 --Withdraw money--
-CREATE OR REPLACE FUNCTION withdrawMoney()
+CREATE OR REPLACE FUNCTION withdrawMoney(account_id_variable number, amount_variable number)
+    IF (checkIfPositive(amount_variable) == 1)
+        UPDATE Account
+        SET balance = balance - amount_variable
+        WHERE account_id = account_id_variable
+    ELSE
+        --Something?
