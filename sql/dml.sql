@@ -148,107 +148,205 @@ CREATE OR REPLACE FUNCTION withdrawMoney(account_id_variable number, amount_vari
 
 ----------Insert Functions--------
 
+CREATE OR REPLACE FUNCTION ()
+    RETURN void AS
+    $$
+
+    $$
+    LANGUAGE 'plpgsql';
+
 --Account--
-INSERT INTO Account(
-    account_id,
-    account_type,
-    balance)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoAccount(account_id_variable integer, account_type_variable varchar(255), balance_variable real)
+    RETURNS void AS
+    $$
+    BEGIN
+        INSERT INTO Account(
+            account_id,
+            account_type,
+            balance)
+        Values(account_id_variable, account_type_variable, balance_variable);
+        END
+    $$
+    LANGUAGE 'plpgsql';
 
 --AccountPerformsTransaction--
-INSERT INTO AccountPerformsTransaction(
-    account_id,
-    transaction_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoAccountPerformsTransaction(account_id_variable integer, transaction_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO AccountPerformsTransaction(
+        account_id,
+        transaction_id)
+    Values(account_id_variable, transaction_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
+
 
 --AccountType--
-INSERT INTO AccountType(
-    account_type_id,
-    interest_rate_name,
-    interest_rate_value,
-    account_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoAccountType(account_type_id_variable integer, interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO AccountType(
+        account_type_id,
+        interest_rate_name,
+        interest_rate_value,
+        account_id)
+    Values(account_type_id_variable, interest_rate_name_variable, interest_rate_value_variable, account_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --CashDraft--
-INSERT INTO CashDraft(
-    cash_draft_id,
-    transaction_date,
-    transaction_amount)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoCashDraft(cash_draft_id_variable integer, transaction_date_variable timestamp, transaction_amount_variable real)
+    RETURN void AS
+    $$
+    INSERT INTO CashDraft(
+        cash_draft_id,
+        transaction_date,
+        transaction_amount)
+    Values(cash_draft_id_variable, transaction_date_variable, transaction_amount_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Customer--
-INSERT INTO Customer(
-    customer_id,
-    customer_type,
-    person_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoCustomer(customer_id_variable integer, customer_type_variable varchar(255), person_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO Customer(
+        customer_id,
+        customer_type,
+        person_id)
+    Values(customer_id_variable, customer_type_variable, person_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --CustomerHasAccount--
-INSERT INTO CustomerHasAccount(
-    customer_id,
-    account_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoCustomerHasAccount(customer_id_variable integer, account_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO CustomerHasAccount(
+        customer_id,
+        account_id)
+    Values(customer_id_variable, account_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Employee--
-INSERT INTO Employee(
-    employee_id,
-    employee_name,
-    employee_salaray,
-    person_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoEmployee(employee_id_variable integer, employee_name_variable varchar(255), employee_salary_variable real, person_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO Employee(
+        employee_id,
+        employee_name,
+        employee_salary,
+        person_id)
+    Values(employee_id_variable, employee_name_variable, employee_salary_variable, person_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --EmployeePerformsCashDraft--
-INSERT INTO EmployeePerformsCashDraft(
-    employee_id,
-    cash_draft_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoEmployeePerformsCashDraft(employee_id_variable integer, cash_draft_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO EmployeePerformsCashDraft(
+        employee_id,
+        cash_draft_id)
+    Values(employee_id_variable, cash_draft_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Parent--
-INSERT INTO Parent(
-    parent_id,
-    child_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoParent(parent_id_variable integer, child_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO Parent(
+        parent_id,
+        child_id)
+    Values(parent_id_variable, child_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Person--
-INSERT INTO Person(
-    person_id,
-    person_first_name,
-    person_last_name,
-    date_of_birth,
-    street_name,
-    street_number,
-    apartment_number,
-    zipcode,
-    person_number_id)
-VALUES ()
+CREATE OR REPLACE FUNCTION insertIntoPerson(person_id_variable integer, person_first_name_variable varchar(255), person_last_name_variable varchar(255), date_of_birth_variable timestamp, street_name_variable varchar(255), street_number_variable integer, apartment_number_variable integer, zipcode_variable integer, person_number_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO Person(
+        person_id,
+        person_first_name,
+        person_last_name,
+        date_of_birth,
+        street_name,
+        street_number,
+        apartment_number,
+        zipcode,
+        person_number_id)
+    VALUES (person_id_variable, person_first_name_variable, person_last_name_variable, date_of_birth_variable, street_name_variable, street_number_variable, apartment_number_variable, zipcode_variable, person_number_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --PersonalNumber--
-INSERT INTO PersonalNumber(
-    personal_number_id)
-VALUES ()
+CREATE OR REPLACE FUNCTION insertIntoPersonalNumber(personal_number_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO PersonalNumber(
+        personal_number_id)
+    VALUES (personal_number_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Spouse--
-INSERT INTO Spouse(
-    spouse_1_id,
-    spouse_2_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoSpouse(spouse_1_id_variable integer, spouse_2_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO Spouse(
+        spouse_1_id,
+        spouse_2_id)
+    Values(spouse_1_id_variable, spouse_2_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Transaction--
-INSERT INTO Transaction(
-    transaction_id,
-    transaction_type,
-    transaction_time,
-    transaction_amount)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoTransactions(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp,transaction_amount_variable real)
+    RETURN void AS
+    $$
+    INSERT INTO Transactions(
+        transaction_id,
+        transaction_type,
+        transaction_time,
+        transaction_amount)
+    Values(transaction_id_variable, transaction_type_variable, transaction_time_variable, transaction_amount_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --TransactionStoredInCashDraft--
-INSERT INTO TransactionStoredInCashDraft(
-    cash_draft_id,
-    transaction_id)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoTransactionStoredInCashDraft(cash_draft_id_variable integer, transaction_id_variable integer)
+    RETURN void AS
+    $$
+    INSERT INTO TransactionStoredInCashDraft(
+        cash_draft_id,
+        transaction_id)
+    Values(cash_draft_id_variable, transaction_id_variable)
+    $$
+    LANGUAGE 'plpgsql';
+
 
 --Zipcode--
-INSERT INTO Zipcode(
-    zipcode,
-    town)
-Values()
+CREATE OR REPLACE FUNCTION insertIntoZipcode(zipcode_variable integer, town_variable varchar(255))
+    RETURN void AS
+    $$
+    INSERT INTO Zipcode(
+        zipcode,
+        town)
+    Values(zipcode_variable, town_variable)
+    $$
+    LANGUAGE 'plpgsql';
