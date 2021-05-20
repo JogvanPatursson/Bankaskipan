@@ -83,4 +83,47 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(
     FROM CustomerHasAccount
     WHERE customer_id = spouse_2_id_variable;
 
-----
+--Login--
+CREATE OR REPLACE FUNCTION userLogin(personal_number_id_variable number, )
+    SELECT 
+
+--Check if sufficient funds--
+CREATE OR REPLACE FUNCTION checkIfSufficientFunds(account_id_variable number, amount_variable number)
+    RETURNS BIT
+    AS
+    BEGIN
+        IF(amount_variable >= (SELECT balance
+            FROM Account
+            WHERE account_id = account_id_variable))
+            RETURN 1
+        ELSE
+            RETURN 0
+    END
+
+--Check if number a positive number--
+CREATE OR REPLACE FUNCTION checkIfPositive(number_variable number)
+    RETURNS BIT
+    AS
+    BEGIN
+        IF(number_variable > 0)
+            RETURN 1
+        ELSE
+            RETURN 0
+    END
+
+--Transfer money--
+CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable number, account_id_2_variable number, amount_variable number )
+    UPDATE Account
+    SET balance = balance - amount_variable
+    WHERE account_id = account_id_1_variable;
+    
+    UPDATE Account
+    SET balance = balance + amount_variable
+    WHERE account_id = account_id_2_variable;
+
+--Deposit money--
+CREATE OR REPLACE FUNCTION depositMoney()
+
+
+--Withdraw money--
+CREATE OR REPLACE FUNCTION withdrawMoney()
