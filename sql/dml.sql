@@ -144,43 +144,67 @@ CREATE OR REPLACE FUNCTION withdrawMoney(account_id_variable number, amount_vari
 ----------Insert Functions--------
 
 --Account--
-INSERT INTO Account(account_id, account_type, balance)
+INSERT INTO Account(account_id,
+                    account_type,
+                    balance)
 Values()
 
 --AccountPerformsTransaction--
-INSERT INTO AccountPerformsTransaction(account_id, transaction_id)
+INSERT INTO AccountPerformsTransaction( account_id,
+                                        transaction_id)
 Values()
 
 --AccountType--
-INSERT INTO AccountType(account_type_id, interest_rate_name, interest_rate_value, account_id)
+INSERT INTO AccountType(account_type_id,
+                        interest_rate_name,
+                        interest_rate_value,
+                        account_id)
 Values()
 
 --CashDraft--
-INSERT INTO CashDraft(cash_draft_id, transaction_date, transaction_amount)
+INSERT INTO CashDraft(  cash_draft_id,
+                        transaction_date,
+                        transaction_amount)
 Values()
 
 --Customer--
-INSERT INTO Customer(customer_id, customer_type, person_id)
+INSERT INTO Customer(   customer_id,
+                        customer_type,
+                        person_id)
 Values()
 
 --CustomerHasAccount--
-INSERT INTO CustomerHasAccount(customer_id, account_id)
+INSERT INTO CustomerHasAccount( customer_id,
+                                account_id)
 Values()
 
 --Employee--
-INSERT INTO Employee(employee_id, employee_name, employee_salaray, person_id)
+INSERT INTO Employee(   employee_id,
+                        employee_name,
+                        employee_salaray,
+                        person_id)
 Values()
 
 --EmployeePerformsCashDraft--
-INSERT INTO EmployeePerformsCashDraft(employee_id, cash_draft_id)
+INSERT INTO EmployeePerformsCashDraft(  employee_id,
+                                        cash_draft_id)
 Values()
 
 --Parent--
-INSERT INTO Parent(parent_id, child_id)
+INSERT INTO Parent( parent_id,
+                    child_id)
 Values()
 
 --Person--
-INSERT INTO Person(person_id, person_first_name, person_last_name, date_of_birth, street_name, street_number, apartment_number, zipcode, perosn_number_id)
+INSERT INTO Person( person_id,
+                    person_first_name,
+                    person_last_name,
+                    date_of_birth,
+                    street_name,
+                    street_number,
+                    apartment_number,
+                    zipcode,
+                    person_number_id)
 VALUES ()
 
 --PersonalNumber--
@@ -188,15 +212,20 @@ INSERT INTO PersonalNumber(personal_number_id)
 VALUES ()
 
 --Spouse--
-INSERT INTO Spouse(spouse_1_id, spouse_2_id)
+INSERT INTO Spouse( spouse_1_id,
+                    spouse_2_id)
 Values()
 
 --Transaction--
-INSERT INTO Transaction(transaction_id, transaction_type, transaction_time, transaction_amount)
+INSERT INTO Transaction(transaction_id,
+                        transaction_type,
+                        transaction_time,
+                        transaction_amount)
 Values()
 
 --TransactionStoredInCashDraft--
-INSERT INTO TransactionStoredInCashDraft(cash_draft_id, transaction_id)
+INSERT INTO TransactionStoredInCashDraft(   cash_draft_id,
+                                            transaction_id)
 Values()
 
 --Zipcode--
