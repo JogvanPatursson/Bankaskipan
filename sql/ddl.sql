@@ -67,7 +67,7 @@ CREATE TABLE Employee(
 
 --Create Employee Performs Cash Draft table--
 CREATE TABLE EmployeePerformsCashDraft(
-    employee integer NOT NULL,
+    employee_id integer NOT NULL,
     cash_draft_id integer NOT NULL
 );
 
