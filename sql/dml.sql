@@ -11,8 +11,34 @@
 -----------------------------------
 
 
---Check Account Number--
---CREATE OR REPLACE FUNCTION 
+-------Check Account Number--------
+DROP TRIGGER triggerCheckAccountNumberInsert ON account;
+
+CREATE OR REPLACE FUNCTION checkAccountNumber()
+    RETURNS TRIGGER AS
+    $$
+    BEGIN
+        INSERT INTO account(account_id, account_type, balance)
+        VALUES (OLD.account_id, OLD.account_type, OLD.balance);
+    END
+    $$
+    LANGUAGE 'plpgsql';
+
+CREATE TRIGGER triggerCheckAccountNumberInsert
+    BEFORE INSERT
+    ON account
+    FOR EACH ROW
+    EXECUTE PROCEDURE checkAccountNumber();
+
+
+----------Transactions-------------
+DROP TRIGGER triggerTransactions ON transactions;
+
+CREATE OR REPLACE FUNCTION 
+
+
+
+
 
 -----------------------------------
 --------Select Functions-----------
