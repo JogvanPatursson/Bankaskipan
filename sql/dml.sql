@@ -12,7 +12,7 @@
 
 
 --Check Account Number--
-CREATE OR REPLACE FUNCTION 
+--CREATE OR REPLACE FUNCTION 
 
 -----------------------------------
 --------Select Functions-----------
@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION
 
 
 --Get all transactions of customer--
-CREATE OR REPLACE FUNCTION getAllTransactions(personal_number_id_variable varchar(255))
+CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
     RETURNS TABLE(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real) AS
     $$
     BEGIN
@@ -32,23 +32,7 @@ CREATE OR REPLACE FUNCTION getAllTransactions(personal_number_id_variable varcha
             WHERE account_id = (
                 SELECT account_id
                 FROM Account
-                WHERE account_id = (
-                    SELECT account_id
-                    FROM CustomerHasAccount
-                    WHERE customer_id = (
-                        SELECT customer_id
-                        FROM Customer
-                        WHERE person_id = (
-                            SELECT person_id
-                            FROM Person
-                            WHERE personal_number_id = (
-                                SELECT personal_number_id
-                                FROM PersonalNumber
-                                WHERE personal_number_id = personal_number_id_variable
-                            )
-
-                        )
-                    )
+                WHERE account_id = account_id_variable(
                 )
             )
         );
@@ -150,10 +134,23 @@ CREATE OR REPLACE FUNCTION checkIfSufficientFunds(account_id_variable number, am
     $$
     LANGUAGE 'plpgsql';
 
+------------------------------------
+------------------------------------
+------------------------------------
+
+CREATE OR REPLACE FUNCTION checkbankaccount(account_id_variable number)
+    AS
+    $$
+    BEGIN
+
+    END
+    $$
+
+
 
 --Check if number a positive number--
 CREATE OR REPLACE FUNCTION checkIfPositive(number_variable number)
-    RETURN boolean AS
+    RETURNS BIT AS
     $$
     BEGIN
         IF(number_variable > 0)
@@ -165,8 +162,8 @@ CREATE OR REPLACE FUNCTION checkIfPositive(number_variable number)
     LANGUAGE 'plpgsql';
 
 --Transfer money--
-CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable number, account_id_2_variable number, amount_variable number )
-        RETURN void AS
+CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
+    RETURNS void AS
     $$
     BEGIN
         UPDATE Account
@@ -176,6 +173,63 @@ CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable number, account_i
         UPDATE Account
         SET balance = balance + amount_variable
         WHERE account_id = account_id_2_variable;
+
+        INSERT INTO Transactions(   transaction_id,
+                                    transaction_type,
+                                    transaction_time,
+                                    transaction_amount)
+        VALUES( account_id_1_variable,
+                'normal?',
+                CURRENT_TIMESTAMP,
+                -amount_variable);
+
+        INSERT INTO Transactions(   transaction_id,
+                                    transaction_type,
+                                    transaction_time,
+                                    transaction_amount)
+        VALUES( account_id_2_variable,
+                'normal?',
+                CURRENT_TIMESTAMP,
+                amount_variable);
+
+        COMMIT;
+    END
+    
+    $$
+    LANGUAGE 'plpgsql';
+
+--Transfer money--
+CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
+    RETURNS void AS
+    $$
+    BEGIN
+        UPDATE Account
+        SET balance = balance - amount_variable
+        WHERE account_id = account_id_1_variable;
+        
+        UPDATE Account
+        SET balance = balance + amount_variable
+        WHERE account_id = account_id_2_variable;
+
+        INSERT INTO Transactions(   transaction_id,
+                                    transaction_type,
+                                    transaction_time,
+                                    transaction_amount)
+        VALUES( account_id_1_variable,
+                'normal?',
+                TIMESTAMP,
+                -amount_variable);
+
+                INSERT INTO Transactions(   transaction_id,
+                                    transaction_type,
+                                    transaction_time,
+                                    transaction_amount)
+        VALUES( account_id_2_variable,
+                'normal?',
+                TIMESTAMP,
+                amount_variable);
+
+        COMMIT;
     END
     $$
     LANGUAGE 'plpgsql';
