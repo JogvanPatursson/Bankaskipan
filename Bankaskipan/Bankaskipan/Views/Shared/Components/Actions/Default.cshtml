@@ -1,0 +1,23 @@
+﻿@model Bankaskipan.Models.Action
+
+<form asp-controller="Customer" asp-action="Action" method="post" class="mt-3">
+    <div class="form-group row">
+        <label asp-for="Amount" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Amount" class="form-control" placeholder="Name" />
+        </div>
+        <label asp-for="Type" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Type" class="form-control" placeholder="Name" />
+        </div>
+        <label asp-for="FromAccount" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="FromAccount" class="form-control" placeholder="Name" />
+        </div>
+        <label asp-for="ToAccount" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ToAccount" class="form-control" placeholder="Name" />
+        </div>
+    </div>
+    <input type="submit" class="btn btn-outline-dark" value="Create" />
+</form>

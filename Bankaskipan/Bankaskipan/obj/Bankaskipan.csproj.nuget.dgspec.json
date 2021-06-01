@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\code\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj": {}
+    "C:\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj": {}
   },
   "projects": {
-    "C:\\code\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj": {
+    "C:\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\code\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj",
+        "projectUniqueName": "C:\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj",
         "projectName": "Bankaskipan",
-        "projectPath": "C:\\code\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj",
-        "packagesPath": "C:\\Users\\jogva\\.nuget\\packages\\",
-        "outputPath": "C:\\code\\Bankaskipan\\Bankaskipan\\Bankaskipan\\obj\\",
+        "projectPath": "C:\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan.csproj",
+        "packagesPath": "C:\\Users\\homr_\\.nuget\\packages\\",
+        "outputPath": "C:\\Bankaskipan\\Bankaskipan\\Bankaskipan\\Bankaskipan\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jogva\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\homr_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -43,6 +47,22 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[1.3.8, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
+            "SSH.NET": {
+              "target": "Package",
+              "version": "[2020.0.1, )"
+            },
+            "System.Collections.NonGeneric": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             }
           },
           "imports": [
@@ -55,6 +75,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.13, 3.1.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -63,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }
