@@ -12,14 +12,54 @@
 
 
 -------Check Account Number--------
-DROP TRIGGER triggerCheckAccountNumberInsert ON account;
 
-CREATE OR REPLACE FUNCTION checkAccountNumber()
+/*
+A function to insert a row into account is called.
+Before inserting row into Account, a trigger calls the trigger function.
+The trigger function takes the values from the account insert function,
+and calculates the account number and checks if it is valid.
+If it is valid it inserts the values from the account insert function into the account table.
+*****If it is not valid it returns false????
+
+
+*/
+DROP TRIGGER triggerCheckAccountNumberInsert ON account;
+DROP PROCEDURE checkAccountNumber();
+
+CREATE SEQUENCE account_number_sequence;
+
+CREATE OR REPLACE PROCEDURE checkAccountNumber()
     RETURNS TRIGGER AS
+    DECLARE
+        next_account integer;
+        tvorsum integer;
+        rest integer;
+        acc varchar(11);
     $$
     BEGIN
-        INSERT INTO account(account_id, account_type, balance)
-        VALUES (OLD.account_id, OLD.account_type, OLD.balance);
+        LOOP
+            acc := CONCAT('6969', LPAD(TO_CHAR(next_account), 4, '0'));
+            tvorsum :=  5 * TO_NUMBER(SUBSTR(acc, 1, 1)) +
+                        4 * TO_NUMBER(SUBSTR(acc, 2, 1)) +
+                        3 * TO_NUMBER(SUBSTR(acc, 3, 1)) +
+                        2 * TO_NUMBER(SUBSTR(acc, 4, 1)) +
+                        7 * TO_NUMBER(SUBSTR(acc, 5, 1)) +
+                        6 * TO_NUMBER(SUBSTR(acc, 6, 1)) +
+                        5 * TO_NUMBER(SUBSTR(acc, 7, 1)) +
+                        4 * TO_NUMBER(SUBSTR(acc, 8, 1)) +
+                        3 * TO_NUMBER(SUBSTR(acc, 9, 1)) +
+                        2 * TO_NUMBER(SUBSTR(acc, 10, 1));
+            rest := 11 - MOD(tvorsum, 11);
+            EXIT WHEN rest < 10;
+            NEW.account_id := TO_NUMBER(acc) * 10 + rest;
+        END LOOP;
+
+        --IF NEW.account_id < 100 THEN
+            INSERT INTO account(account_id, account_type, balance)
+            VALUES (NEW.account_id, NEW.account_type, NEW.balance);
+        --    RETURN NEW;
+        --ELSE
+        --    RETURN NULL;
     END
     $$
     LANGUAGE 'plpgsql';
@@ -31,13 +71,57 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
     EXECUTE PROCEDURE checkAccountNumber();
 
 
-----------Transactions-------------
+
+-----------------------------------
+-----Stored Procedure Transfer-----
+-----------------------------------
 DROP TRIGGER triggerTransactions ON transactions;
+DROP SEQUENCE transaction_sequence;
 
-CREATE OR REPLACE FUNCTION 
+CREATE SEQUENCE transaction_sequence;
 
+CREATE TRIGGER trigger_transaction_insert
+    BEFORE INSERT ON transactions
+    FOR EACH ROW
+    BEGIN
 
+    END;
 
+CREATE TRIGGER transaction_salo_insert
+    AFTER INSERT
+    FOR EACH ROW
+    BEGIN
+        UPDATE account
+        SET balance = balance + NEW.amount;
+    END;
+
+CREATE OR REPLACE PROCEDURE transfer(account_id_1_variable integer, account_id_2_variable integer, upphaed integer) 
+IS
+    temp_account integer(12, 0);
+BEGIN
+    SELECT account_number INTO temp_account
+    FROM account
+    WHERE account_number = account_id_1_variable
+    FOR UPDATE;
+
+    SELECT account_number INTO temp_account
+    FROM account
+    WHERE account_number = account_id_2_variable
+    FOR UPDATE;
+
+    INSERT INTO transactions
+    (account, amount)
+    VALUES
+    (account_id_1_variable, -upphaed);
+
+    INSERT INTO transactions
+    (account, amount)
+    VALUES
+    (account_id_2_variable, upphaed);
+
+    commit;
+
+END;
 
 
 -----------------------------------
