@@ -29,21 +29,22 @@ DROP SEQUENCE account_number_sequence;
 
 CREATE SEQUENCE account_number_sequence;
 
-
 CREATE OR REPLACE FUNCTION checkAccountNumber()
     RETURNS TRIGGER AS
     $$
     DECLARE
         next_account integer;
-        tvorsum integer;
+        crossum integer;
         rest integer;
         acc varchar(11);
     
     BEGIN
         LOOP
-            --select account_number_sequence.nextval INTO next_account;
-            acc := CONCAT('6969', LPAD(to_char(next_account, '9'), 4, '0'));
-            tvorsum :=  5 * to_number(SUBSTR(acc, 1, 1), '9') +
+            select nextval('account_number_sequence') INTO next_account;
+            --acc := CONCAT('6969', LPAD(to_char(next_account, '9'), 4, '0'));
+            acc := CONCAT('6969', LPAD(TO_CHAR(next_account, 'FM999999999999999'), 6, '0'));
+            --acc := '01111111111';
+            crossum :=  5 * to_number(SUBSTR(acc, 1, 1), '9') +
                         4 * to_number(SUBSTR(acc, 2, 1), '9') +
                         3 * to_number(SUBSTR(acc, 3, 1), '9') +
                         2 * to_number(SUBSTR(acc, 4, 1), '9') +
@@ -53,17 +54,11 @@ CREATE OR REPLACE FUNCTION checkAccountNumber()
                         4 * to_number(SUBSTR(acc, 8, 1), '9') +
                         3 * to_number(SUBSTR(acc, 9, 1), '9') +
                         2 * to_number(SUBSTR(acc, 10, 1), '9');
-            rest := 11 - MOD(tvorsum, 11);
+            rest := 11 - MOD(crossum, 11);
             EXIT WHEN rest < 10;
-            NEW.account_id := TO_NUMBER(acc) * 10 + rest;
         END LOOP;
-
-        --IF NEW.account_id < 100 THEN
-            INSERT INTO account(account_id, account_type, balance)
-            VALUES (NEW.account_id, NEW.account_type, NEW.balance);
-        --    RETURN NEW;
-        --ELSE
-        --    RETURN NULL;
+        NEW.account_id := TO_NUMBER(acc, 'FM9999999999') * 10 + rest;
+        RETURN NEW;
     END
     $$
     LANGUAGE 'plpgsql';
