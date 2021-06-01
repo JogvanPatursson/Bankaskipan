@@ -24,31 +24,35 @@ If it is valid it inserts the values from the account insert function into the a
 
 */
 DROP TRIGGER triggerCheckAccountNumberInsert ON account;
-DROP PROCEDURE checkAccountNumber();
+DROP FUNCTION checkAccountNumber();
+DROP SEQUENCE account_number_sequence;
 
 CREATE SEQUENCE account_number_sequence;
 
-CREATE OR REPLACE PROCEDURE checkAccountNumber()
+
+CREATE OR REPLACE FUNCTION checkAccountNumber()
     RETURNS TRIGGER AS
+    $$
     DECLARE
         next_account integer;
         tvorsum integer;
         rest integer;
         acc varchar(11);
-    $$
+    
     BEGIN
         LOOP
-            acc := CONCAT('6969', LPAD(TO_CHAR(next_account), 4, '0'));
-            tvorsum :=  5 * TO_NUMBER(SUBSTR(acc, 1, 1)) +
-                        4 * TO_NUMBER(SUBSTR(acc, 2, 1)) +
-                        3 * TO_NUMBER(SUBSTR(acc, 3, 1)) +
-                        2 * TO_NUMBER(SUBSTR(acc, 4, 1)) +
-                        7 * TO_NUMBER(SUBSTR(acc, 5, 1)) +
-                        6 * TO_NUMBER(SUBSTR(acc, 6, 1)) +
-                        5 * TO_NUMBER(SUBSTR(acc, 7, 1)) +
-                        4 * TO_NUMBER(SUBSTR(acc, 8, 1)) +
-                        3 * TO_NUMBER(SUBSTR(acc, 9, 1)) +
-                        2 * TO_NUMBER(SUBSTR(acc, 10, 1));
+            --select account_number_sequence.nextval INTO next_account;
+            acc := CONCAT('6969', LPAD(to_char(next_account, '9'), 4, '0'));
+            tvorsum :=  5 * to_number(SUBSTR(acc, 1, 1), '9') +
+                        4 * to_number(SUBSTR(acc, 2, 1), '9') +
+                        3 * to_number(SUBSTR(acc, 3, 1), '9') +
+                        2 * to_number(SUBSTR(acc, 4, 1), '9') +
+                        7 * to_number(SUBSTR(acc, 5, 1), '9') +
+                        6 * to_number(SUBSTR(acc, 6, 1), '9') +
+                        5 * to_number(SUBSTR(acc, 7, 1), '9') +
+                        4 * to_number(SUBSTR(acc, 8, 1), '9') +
+                        3 * to_number(SUBSTR(acc, 9, 1), '9') +
+                        2 * to_number(SUBSTR(acc, 10, 1), '9');
             rest := 11 - MOD(tvorsum, 11);
             EXIT WHEN rest < 10;
             NEW.account_id := TO_NUMBER(acc) * 10 + rest;
