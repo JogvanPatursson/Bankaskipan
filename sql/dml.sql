@@ -74,19 +74,21 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
 -----------------------------------
 -----Stored Procedure Transfer-----
 -----------------------------------
-DROP TRIGGER triggerTransactions ON transactions;
-DROP SEQUENCE transaction_sequence;
 
-CREATE SEQUENCE transaction_sequence;
+--Drop Triggers
+DROP TRIGGER trigger_transactions ON transactions;
+DROP TRIGGER 
 
-CREATE TRIGGER trigger_transaction_insert
+--Trigger when logging transacitons
+CREATE TRIGGER trigger_transactions_insert
     BEFORE INSERT ON transactions
     FOR EACH ROW
     BEGIN
 
     END;
 
-CREATE TRIGGER transaction_salo_insert
+--Trigger when updating bank account balance
+CREATE TRIGGER trigger_transactions_balance_insert
     AFTER INSERT
     FOR EACH ROW
     BEGIN
@@ -94,19 +96,23 @@ CREATE TRIGGER transaction_salo_insert
         SET balance = balance + NEW.amount;
     END;
 
-CREATE OR REPLACE PROCEDURE transfer(account_id_1_variable integer, account_id_2_variable integer, upphaed integer) 
-IS
-    temp_account integer(12, 0);
-BEGIN
-    SELECT account_number INTO temp_account
-    FROM account
-    WHERE account_number = account_id_1_variable
-    FOR UPDATE;
 
-    SELECT account_number INTO temp_account
-    FROM account
-    WHERE account_number = account_id_2_variable
-    FOR UPDATE;
+DROP SEQUENCE transaction_sequence;
+CREATE SEQUENCE transaction_sequence;
+
+
+CREATE OR REPLACE PROCEDURE transfers(account_id_1_variable integer, account_id_2_variable integer, amount_variable real) 
+LANGUAGE 'plpgsql'
+AS
+$$
+BEGIN
+    UPDATE account
+    SET balance = balance - amount_variable
+    WHERE account_id = account_id_1_variable;
+
+    UPDATE account
+    SET balance = balance + amount_variable
+    WHERE account_id = account_id_2_variable;
 
     INSERT INTO transactions
     (account, amount)
@@ -121,6 +127,7 @@ BEGIN
     commit;
 
 END;
+$$
 
 
 -----------------------------------
