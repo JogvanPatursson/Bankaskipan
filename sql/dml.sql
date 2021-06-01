@@ -134,7 +134,7 @@ END;
 
 
 --Get all transactions of customer--
-CREATE OR REPLACE PROCEDURE getAllTransactions(account_id_variable varchar(255))
+CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
     RETURNS TABLE(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real)
     AS
     $$
@@ -156,8 +156,8 @@ CREATE OR REPLACE PROCEDURE getAllTransactions(account_id_variable varchar(255))
     LANGUAGE 'plpgsql';
 
 --Show all accounts of person--
-CREATE OR REPLACE PROCEDURE showAllAccounts(person_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer)
+CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
+    RETURNS TABLE(account_id_variable integer)
     AS
     $$
     BEGIN
@@ -169,16 +169,16 @@ CREATE OR REPLACE PROCEDURE showAllAccounts(person_id_variable varchar(255))
             WHERE customer_id = (
                 SELECT customer_id
                 FROM Customer
-                WHERE person_id = person_id_variable;
+                WHERE person_id = person_id_variable
             )
-        )
+        );
     END;
     $$
     LANGUAGE 'plpgsql';
 
 --Show all spouses, and children of customer--
-CREATE OR REPLACE PROCEDURE showAllSpousesOrChildren(customer_id_variable varchar(255))
-    RETURN TABLE(child_or_spouse_id_variable integer)
+CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar(255))
+    RETURNS TABLE(child_or_spouse_id_variable integer)
     AS
     $$
     BEGIN
@@ -195,16 +195,16 @@ CREATE OR REPLACE PROCEDURE showAllSpousesOrChildren(customer_id_variable varcha
             WHERE spouse_1_id = (
                 SELECT customer_id
                 FROM Customer
-                WHERE customer_id = customer_id_variable;
-            )
+                WHERE customer_id = customer_id_variable
+            );
     END;
     $$
     LANGUAGE 'plpgsql';
     
 
 --Show all accounts of child--    
-CREATE OR REPLACE PROCEDURE showAllAccountsOfChild(child_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer)
+CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255))
+    RETURNS TABLE(account_id_variable integer)
     AS
     $$
     BEGIN
@@ -217,8 +217,8 @@ CREATE OR REPLACE PROCEDURE showAllAccountsOfChild(child_id_variable varchar(255
 
 
 --Show all accounts of spouse--
-CREATE OR REPLACE PROCEDURE showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer)
+CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
+    RETURNS TABLE(account_id_variable integer)
     AS
     $$
     BEGIN
@@ -228,7 +228,6 @@ CREATE OR REPLACE PROCEDURE showAllAccountsOfSpouse(spouse_2_id_variable varchar
     END;
     $$
     LANGUAGE 'plpgsql';
-
 /*
 --Login--
 CREATE OR REPLACE PROCEDURE userLogin(personal_number_id_variable number, )
