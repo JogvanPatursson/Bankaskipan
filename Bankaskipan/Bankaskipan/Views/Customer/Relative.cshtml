@@ -1,0 +1,32 @@
+﻿@model Bankaskipan.Models.Person
+
+@{
+    ViewData["Title"] = "DogeBank - Relative - " + Model.first_name;
+}
+
+<div class="dropdown-container">
+    <div class="dropdown">
+        <a class="btn dropdown-toggle" data-toggle="dropdown">
+            @Model.relative
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/Customer/Person/@Model.first_name">@Model.first_name</a></li>
+            @foreach (var person in Model.relatives)
+            {
+                <li><a class="dropdown-item" href="/Customer/Relative/@Model.first_name/@person.first_name">@person.first_name</a></li>
+            }
+        </ul>
+        @foreach (var person in Model.relatives)
+        {
+            if (person.first_name == Model.relative)
+            {
+                <span>@person.last_name</span>
+            }
+        }
+    </div>
+</div>
+<br />
+<div class="accounts-container">    
+    <vc:accounts name="@Model.relative" />
+</div>

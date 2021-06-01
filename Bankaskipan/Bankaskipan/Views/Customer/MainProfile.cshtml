@@ -1,0 +1,95 @@
+﻿@model Bankaskipan.Models.Person
+
+@{
+    ViewData["Title"] = "DogeBank - " + Model.first_name;
+}
+
+
+
+<div class="container">
+    <div class="dropdown-container">
+        <div class="dropdown">
+            <a id="dropper" class="btn dropdown-toggle" data-toggle="dropdown">
+                @Model.first_name
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropper">
+                @if (Model.relatives != null)
+                {
+                    foreach (var person in Model.relatives)
+                    {
+                        <li role="presentation"><a role="menuitem" tabindex="-1" class="dropdown-item" href="/Customer/Relative/@Model.first_name/@person.first_name">@person.first_name</a></li>
+                    }
+                }
+            </ul>
+            <span>@Model.last_name</span>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="content" class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div id="accounts" class="btn-group-vertical w25">
+                    @foreach (var account in Model.accounts)
+                    {
+                        <a href="/Customer/Account/@Model.first_name/@account.account_id" class="btn btn-default" role="button">@account.account_id</a>
+                    }
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                @if (ViewBag.Account != null)
+                {
+                    var account = ViewBag.Account as Bankaskipan.Models.Account;
+
+                    <div id="account-info">
+                        <span class="float-left">Account number: @account.account_id</span>
+                        <span class="float-right">Balance: @account.balance</span>
+                    </div>
+
+                    @if (account.transactions.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var transaction in account.transactions)
+                                    {
+                                        <tr>
+                                            <th scope="row">@transaction.transaction_id</th>
+                                            <td>@transaction.type</td>
+                                            <td>@transaction.amount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        @{ if (ViewBag.Account != null)
+            {
+                var account = ViewBag.Account;
+               <div id="actions" class="row">
+                    <div class="btn-group-vertical col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Deposit" type="button" class="btn btn-default">Deposit</a>
+                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Withdraw" type="button" class="btn btn-default">Withdraw</a>
+                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Transfer" type="button" class="btn btn-default">Transfer</a>
+                    </div>
+                    <div id="actions-form" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        @if (ViewBag.Action != null)
+                        {
+                            Bankaskipan.Models.Action action = ViewBag.Action;
+                            <vc:actions action=action></vc:actions>
+                        }
+                    </div>
+                </div>
+                }
+            }
+    </div>
+</div>
