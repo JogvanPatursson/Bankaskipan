@@ -151,7 +151,7 @@ CREATE OR REPLACE PROCEDURE getAllTransactions(account_id_variable varchar(255))
                 )
             )
         );
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -160,6 +160,7 @@ CREATE OR REPLACE PROCEDURE showAllAccounts(person_id_variable varchar(255))
     RETURN TABLE(account_id_variable integer)
     AS
     $$
+    BEGIN
         SELECT account_id
         FROM Account
         WHERE account_id = (
@@ -171,6 +172,7 @@ CREATE OR REPLACE PROCEDURE showAllAccounts(person_id_variable varchar(255))
                 WHERE person_id = person_id_variable;
             )
         )
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -195,7 +197,7 @@ CREATE OR REPLACE PROCEDURE showAllSpousesOrChildren(customer_id_variable varcha
                 FROM Customer
                 WHERE customer_id = customer_id_variable;
             )
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
     
@@ -209,7 +211,7 @@ CREATE OR REPLACE PROCEDURE showAllAccountsOfChild(child_id_variable varchar(255
         SELECT account_id
         FROM CustomerHasAccount
         WHERE customer_id = child_id_variable;
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -220,14 +222,14 @@ CREATE OR REPLACE PROCEDURE showAllAccountsOfSpouse(spouse_2_id_variable varchar
     AS
     $$
     BEGIN
-        LANGUAGE 'plpgsql';
         SELECT account_id
         FROM CustomerHasAccount
         WHERE customer_id = spouse_2_id_variable;
-    END
+    END;
     $$
+    LANGUAGE 'plpgsql';
 
-
+/*
 --Login--
 CREATE OR REPLACE PROCEDURE userLogin(personal_number_id_variable number, )
     RETURN  AS
@@ -237,7 +239,7 @@ CREATE OR REPLACE PROCEDURE userLogin(personal_number_id_variable number, )
     END
     $$
     LANGUAGE 'plpgsql';
-
+*/
 --Check if sufficient funds--
 /*
 CREATE OR REPLACE PROCEDURE checkIfSufficientFunds(account_id_variable number, amount_variable number)
