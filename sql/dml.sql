@@ -76,26 +76,35 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
 -----------------------------------
 
 --Drop Triggers
-DROP TRIGGER trigger_transactions ON transactions;
-DROP TRIGGER 
+DROP TRIGGER trigger_transactions_insert ON transactions;
+DROP TRIGGER trigger_account_balance_insert ON account;
 
 --Trigger when logging transacitons
 CREATE TRIGGER trigger_transactions_insert
-    BEFORE INSERT ON transactions
+    BEFORE INSERT
+    ON transactions
     FOR EACH ROW
     BEGIN
 
     END;
 
 --Trigger when updating bank account balance
-CREATE TRIGGER trigger_transactions_balance_insert
-    AFTER INSERT
+CREATE TRIGGER trigger_account_balance_insert
+    BEFORE UPDATE
+    ON account
     FOR EACH ROW
-    BEGIN
-        UPDATE account
-        SET balance = balance + NEW.amount;
-    END;
+    EXECUTE PROCEDURE
 
+--Trigger Procedure to check if bank balance is enough
+CREATE OR REPLACE FUNCTION checkbalance
+RETURNS TRIGGER
+AS
+$$
+BEGIN
+
+END;
+$$
+LANGUAGE 'plpgsql';
 
 DROP SEQUENCE transaction_sequence;
 CREATE SEQUENCE transaction_sequence;
@@ -106,21 +115,25 @@ LANGUAGE 'plpgsql'
 AS
 $$
 BEGIN
+    --Update balance of first bank account
     UPDATE account
     SET balance = balance - amount_variable
     WHERE account_id = account_id_1_variable;
 
+    --Update balance of second bank account
     UPDATE account
     SET balance = balance + amount_variable
     WHERE account_id = account_id_2_variable;
 
+    --Add record of transaction for first bank account
     INSERT INTO transactions
-    (account, amount)
+    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, amount)
     VALUES
     (account_id_1_variable, -upphaed);
 
+    --Add record of transaction for second bank account
     INSERT INTO transactions
-    (account, amount)
+    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount)
     VALUES
     (account_id_2_variable, upphaed);
 
