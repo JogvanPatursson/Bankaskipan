@@ -134,8 +134,9 @@ END;
 
 
 --Get all transactions of customer--
-CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
-    RETURNS TABLE(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real) AS
+CREATE OR REPLACE PROCEDURE getAllTransactions(account_id_variable varchar(255))
+    RETURNS TABLE(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real)
+    AS
     $$
     BEGIN
         SELECT *
@@ -155,8 +156,9 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
     LANGUAGE 'plpgsql';
 
 --Show all accounts of person--
-CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer) AS
+CREATE OR REPLACE PROCEDURE showAllAccounts(person_id_variable varchar(255))
+    RETURN TABLE(account_id_variable integer)
+    AS
     $$
         SELECT account_id
         FROM Account
@@ -173,8 +175,9 @@ CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
     LANGUAGE 'plpgsql';
 
 --Show all spouses, and children of customer--
-CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar(255))
-    RETURN TABLE(child_or_spouse_id_variable integer) AS
+CREATE OR REPLACE PROCEDURE showAllSpousesOrChildren(customer_id_variable varchar(255))
+    RETURN TABLE(child_or_spouse_id_variable integer)
+    AS
     $$
     BEGIN
         SELECT child_id
@@ -198,8 +201,9 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
     
 
 --Show all accounts of child--    
-CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer) AS
+CREATE OR REPLACE PROCEDURE showAllAccountsOfChild(child_id_variable varchar(255))
+    RETURN TABLE(account_id_variable integer)
+    AS
     $$
     BEGIN
         SELECT account_id
@@ -211,8 +215,9 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255)
 
 
 --Show all accounts of spouse--
-CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
-    RETURN TABLE(account_id_variable integer) AS
+CREATE OR REPLACE PROCEDURE showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
+    RETURN TABLE(account_id_variable integer)
+    AS
     $$
     BEGIN
         LANGUAGE 'plpgsql';
@@ -224,7 +229,7 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(
 
 
 --Login--
-CREATE OR REPLACE FUNCTION userLogin(personal_number_id_variable number, )
+CREATE OR REPLACE PROCEDURE userLogin(personal_number_id_variable number, )
     RETURN  AS
     $$
     BEGIN
@@ -234,8 +239,10 @@ CREATE OR REPLACE FUNCTION userLogin(personal_number_id_variable number, )
     LANGUAGE 'plpgsql';
 
 --Check if sufficient funds--
-CREATE OR REPLACE FUNCTION checkIfSufficientFunds(account_id_variable number, amount_variable number)
-    RETURN boolean AS
+/*
+CREATE OR REPLACE PROCEDURE checkIfSufficientFunds(account_id_variable number, amount_variable number)
+    RETURN boolean
+    AS
     $$
     BEGIN
         IF(amount_variable >= (SELECT balance
@@ -244,15 +251,16 @@ CREATE OR REPLACE FUNCTION checkIfSufficientFunds(account_id_variable number, am
             RETURN 1
         ELSE
             RETURN 0
+        END IF;
     END
     $$
     LANGUAGE 'plpgsql';
-
+*/
 ------------------------------------
 ------------------------------------
 ------------------------------------
-
-CREATE OR REPLACE FUNCTION checkbankaccount(account_id_variable number)
+/*
+CREATE OR REPLACE PROCEDURE checkbankaccount(account_id_variable number)
     AS
     $$
     BEGIN
@@ -260,10 +268,11 @@ CREATE OR REPLACE FUNCTION checkbankaccount(account_id_variable number)
     END
     $$
 
+*/
 
-
+/*
 --Check if number a positive number--
-CREATE OR REPLACE FUNCTION checkIfPositive(number_variable number)
+CREATE OR REPLACE PROCEDURE checkIfPositive(number_variable number)
     RETURNS BIT AS
     $$
     BEGIN
@@ -274,10 +283,11 @@ CREATE OR REPLACE FUNCTION checkIfPositive(number_variable number)
     END
     $$
     LANGUAGE 'plpgsql';
-
+*/
+/*
 --Transfer money--
-CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
-    RETURNS void AS
+CREATE OR REPLACE PROCEDURE transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
+    AS
     $$
     BEGIN
         UPDATE Account
@@ -311,80 +321,7 @@ CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable integer, account_
     
     $$
     LANGUAGE 'plpgsql';
-
---Transfer money--
-CREATE OR REPLACE FUNCTION transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
-    RETURNS void AS
-    $$
-    BEGIN
-        UPDATE Account
-        SET balance = balance - amount_variable
-        WHERE account_id = account_id_1_variable;
-        
-        UPDATE Account
-        SET balance = balance + amount_variable
-        WHERE account_id = account_id_2_variable;
-
-        INSERT INTO Transactions(   transaction_id,
-                                    transaction_type,
-                                    transaction_time,
-                                    transaction_amount)
-        VALUES( account_id_1_variable,
-                'normal?',
-                TIMESTAMP,
-                -amount_variable);
-
-                INSERT INTO Transactions(   transaction_id,
-                                    transaction_type,
-                                    transaction_time,
-                                    transaction_amount)
-        VALUES( account_id_2_variable,
-                'normal?',
-                TIMESTAMP,
-                amount_variable);
-
-        COMMIT;
-    END
-    $$
-    LANGUAGE 'plpgsql';
-
-
---Deposit money--
-CREATE OR REPLACE FUNCTION depositMoney(account_id_variable number, amount_variable number)
-    RETURN void AS
-    $$
-    BEGIN
-        IF (checkIfPositive(amount_variable) == 1)
-        BEGIN
-            UPDATE Account
-            SET balance = balance + amount_variable
-            WHERE account_id = account_id_variable
-        END
-
-        ELSE
-            --Something?
-    END
-    $$
-    LANGUAGE 'plpgsql';
-
-
---Withdraw money--
-CREATE OR REPLACE FUNCTION withdrawMoney(account_id_variable number, amount_variable number)
-    RETURN void AS
-    $$
-    BEGIN
-        IF (checkIfPositive(amount_variable) == 1)
-        BEGIN
-            UPDATE Account
-            SET balance = balance - amount_variable
-            WHERE account_id = account_id_variable
-        END
-
-        ELSE
-            --Something?
-    END
-    $$
-    LANGUAGE 'plpgsql';
+*/
 
 
 ----------------------------------
@@ -392,8 +329,8 @@ CREATE OR REPLACE FUNCTION withdrawMoney(account_id_variable number, amount_vari
 ----------------------------------
 
 --Account--
-CREATE OR REPLACE FUNCTION insertIntoAccount(account_id_variable integer, account_type_variable varchar(255), balance_variable real)
-    RETURNS void AS
+CREATE OR REPLACE PROCEDURE insertIntoAccount(account_id_variable integer, account_type_variable varchar(255), balance_variable real)
+    AS
     $$
     BEGIN
         INSERT INTO Account(
@@ -406,8 +343,8 @@ CREATE OR REPLACE FUNCTION insertIntoAccount(account_id_variable integer, accoun
     LANGUAGE 'plpgsql';
 
 --AccountPerformsTransaction--
-CREATE OR REPLACE FUNCTION insertIntoAccountPerformsTransaction(account_id_variable integer, transaction_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_variable integer, transaction_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO AccountPerformsTransaction(
@@ -419,8 +356,8 @@ CREATE OR REPLACE FUNCTION insertIntoAccountPerformsTransaction(account_id_varia
     LANGUAGE 'plpgsql';
 
 --AccountType--
-CREATE OR REPLACE FUNCTION insertIntoAccountType(account_type_id_variable integer, interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_id_variable integer, interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO AccountType(
@@ -435,8 +372,8 @@ CREATE OR REPLACE FUNCTION insertIntoAccountType(account_type_id_variable intege
 
 
 --CashDraft--
-CREATE OR REPLACE FUNCTION insertIntoCashDraft(cash_draft_id_variable integer, transaction_date_variable timestamp, transaction_amount_variable real)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoCashDraft(cash_draft_id_variable integer, transaction_date_variable timestamp, transaction_amount_variable real)
+    AS
     $$
     BEGIN
     INSERT INTO CashDraft(
@@ -450,8 +387,8 @@ CREATE OR REPLACE FUNCTION insertIntoCashDraft(cash_draft_id_variable integer, t
 
 
 --Customer--
-CREATE OR REPLACE FUNCTION insertIntoCustomer(customer_id_variable integer, customer_type_variable varchar(255), person_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoCustomer(customer_id_variable integer, customer_type_variable varchar(255), person_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO Customer(
@@ -465,8 +402,8 @@ CREATE OR REPLACE FUNCTION insertIntoCustomer(customer_id_variable integer, cust
 
 
 --CustomerHasAccount--
-CREATE OR REPLACE FUNCTION insertIntoCustomerHasAccount(customer_id_variable integer, account_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoCustomerHasAccount(customer_id_variable integer, account_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO CustomerHasAccount(
@@ -479,8 +416,8 @@ CREATE OR REPLACE FUNCTION insertIntoCustomerHasAccount(customer_id_variable int
 
 
 --Employee--
-CREATE OR REPLACE FUNCTION insertIntoEmployee(employee_id_variable integer, employee_name_variable varchar(255), employee_salary_variable real, person_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoEmployee(employee_id_variable integer, employee_name_variable varchar(255), employee_salary_variable real, person_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO Employee(
@@ -495,8 +432,8 @@ CREATE OR REPLACE FUNCTION insertIntoEmployee(employee_id_variable integer, empl
 
 
 --EmployeePerformsCashDraft--
-CREATE OR REPLACE FUNCTION insertIntoEmployeePerformsCashDraft(employee_id_variable integer, cash_draft_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoEmployeePerformsCashDraft(employee_id_variable integer, cash_draft_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO EmployeePerformsCashDraft(
@@ -509,8 +446,8 @@ CREATE OR REPLACE FUNCTION insertIntoEmployeePerformsCashDraft(employee_id_varia
 
 
 --Parent--
-CREATE OR REPLACE FUNCTION insertIntoParent(parent_id_variable integer, child_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoParent(parent_id_variable integer, child_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO Parent(
@@ -523,8 +460,8 @@ CREATE OR REPLACE FUNCTION insertIntoParent(parent_id_variable integer, child_id
 
 
 --Person--
-CREATE OR REPLACE FUNCTION insertIntoPerson(person_id_variable integer, person_first_name_variable varchar(255), person_last_name_variable varchar(255), date_of_birth_variable timestamp, street_name_variable varchar(255), street_number_variable integer, apartment_number_variable integer, zipcode_variable integer, person_number_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable integer, person_first_name_variable varchar(255), person_last_name_variable varchar(255), date_of_birth_variable timestamp, street_name_variable varchar(255), street_number_variable integer, apartment_number_variable integer, zipcode_variable integer, person_number_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO Person(
@@ -544,8 +481,8 @@ CREATE OR REPLACE FUNCTION insertIntoPerson(person_id_variable integer, person_f
 
 
 --PersonalNumber--
-CREATE OR REPLACE FUNCTION insertIntoPersonalNumber(personal_number_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoPersonalNumber(personal_number_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO PersonalNumber(
@@ -557,8 +494,8 @@ CREATE OR REPLACE FUNCTION insertIntoPersonalNumber(personal_number_id_variable 
 
 
 --Spouse--
-CREATE OR REPLACE FUNCTION insertIntoSpouse(spouse_1_id_variable integer, spouse_2_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoSpouse(spouse_1_id_variable integer, spouse_2_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO Spouse(
@@ -570,9 +507,9 @@ CREATE OR REPLACE FUNCTION insertIntoSpouse(spouse_1_id_variable integer, spouse
     LANGUAGE 'plpgsql';
 
 
---Transaction--
-CREATE OR REPLACE FUNCTION insertIntoTransactions(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp,transaction_amount_variable real)
-    RETURN void AS
+--Transactions--
+CREATE OR REPLACE PROCEDURE insertIntoTransactions(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp,transaction_amount_variable real)
+    AS
     $$
     BEGIN
     INSERT INTO Transactions(
@@ -587,8 +524,8 @@ CREATE OR REPLACE FUNCTION insertIntoTransactions(transaction_id_variable intege
 
 
 --TransactionStoredInCashDraft--
-CREATE OR REPLACE FUNCTION insertIntoTransactionStoredInCashDraft(cash_draft_id_variable integer, transaction_id_variable integer)
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoTransactionStoredInCashDraft(cash_draft_id_variable integer, transaction_id_variable integer)
+    AS
     $$
     BEGIN
     INSERT INTO TransactionStoredInCashDraft(
@@ -601,8 +538,8 @@ CREATE OR REPLACE FUNCTION insertIntoTransactionStoredInCashDraft(cash_draft_id_
 
 
 --Zipcode--
-CREATE OR REPLACE FUNCTION insertIntoZipcode(zipcode_variable integer, town_variable varchar(255))
-    RETURN void AS
+CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable integer, town_variable varchar(255))
+    AS
     $$
     BEGIN
     INSERT INTO Zipcode(
