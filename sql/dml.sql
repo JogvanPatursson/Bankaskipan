@@ -96,12 +96,16 @@ CREATE TRIGGER trigger_account_balance_insert
     EXECUTE PROCEDURE
 
 --Trigger Procedure to check if bank balance is enough
-CREATE OR REPLACE FUNCTION checkbalance
+CREATE OR REPLACE FUNCTION checkbalance()
 RETURNS TRIGGER
 AS
 $$
 BEGIN
-
+    --Check if amount is larger than bank balance
+    IF NEW.amount < 0
+        IF NEW.amount > OLD.balance
+        --RETURN NULL/ABORT??
+    END IF;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -114,31 +118,45 @@ CREATE OR REPLACE PROCEDURE transfers(account_id_1_variable integer, account_id_
 LANGUAGE 'plpgsql'
 AS
 $$
+DECLARE
+    balance_check integer;
 BEGIN
     --Update balance of first bank account
     UPDATE account
     SET balance = balance - amount_variable
     WHERE account_id = account_id_1_variable;
 
+    SELECT balance
+    INTO balance_check
+    FROM account
+    WHERE account_id = account_id_1_variable;
+
+
+
     --Update balance of second bank account
     UPDATE account
     SET balance = balance + amount_variable
     WHERE account_id = account_id_2_variable;
 
+
     --Add record of transaction for first bank account
     INSERT INTO transactions
-    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, amount)
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (account_id_1_variable, -upphaed);
+    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, -amount_variable);
 
     --Add record of transaction for second bank account
     INSERT INTO transactions
-    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount)
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (account_id_2_variable, upphaed);
+    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount_variable);
 
-    commit;
-
+    IF balance_check < 0
+    THEN
+        ROLLBACK; 
+    ELSE
+        commit;
+    END IF;
 END;
 $$
 
@@ -354,7 +372,7 @@ CREATE OR REPLACE PROCEDURE insertIntoAccount(account_id_variable integer, accou
             account_type,
             balance)
         Values(account_id_variable, account_type_variable, balance_variable);
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -367,7 +385,7 @@ CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_vari
         account_id,
         transaction_id)
     Values(account_id_variable, transaction_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -382,7 +400,7 @@ CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_id_variable integ
         interest_rate_value,
         account_id)
     Values(account_type_id_variable, interest_rate_name_variable, interest_rate_value_variable, account_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -397,7 +415,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCashDraft(cash_draft_id_variable integer, 
         transaction_date,
         transaction_amount)
     Values(cash_draft_id_variable, transaction_date_variable, transaction_amount_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -412,7 +430,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCustomer(customer_id_variable integer, cus
         customer_type,
         person_id)
     Values(customer_id_variable, customer_type_variable, person_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -426,7 +444,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCustomerHasAccount(customer_id_variable in
         customer_id,
         account_id)
     Values(customer_id_variable, account_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -442,7 +460,7 @@ CREATE OR REPLACE PROCEDURE insertIntoEmployee(employee_id_variable integer, emp
         employee_salary,
         person_id)
     Values(employee_id_variable, employee_name_variable, employee_salary_variable, person_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -456,7 +474,7 @@ CREATE OR REPLACE PROCEDURE insertIntoEmployeePerformsCashDraft(employee_id_vari
         employee_id,
         cash_draft_id)
     Values(employee_id_variable, cash_draft_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -470,7 +488,7 @@ CREATE OR REPLACE PROCEDURE insertIntoParent(parent_id_variable integer, child_i
         parent_id,
         child_id)
     Values(parent_id_variable, child_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -491,7 +509,7 @@ CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable integer, person_
         zipcode,
         person_number_id)
     VALUES (person_id_variable, person_first_name_variable, person_last_name_variable, date_of_birth_variable, street_name_variable, street_number_variable, apartment_number_variable, zipcode_variable, person_number_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -504,7 +522,7 @@ CREATE OR REPLACE PROCEDURE insertIntoPersonalNumber(personal_number_id_variable
     INSERT INTO PersonalNumber(
         personal_number_id)
     VALUES (personal_number_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -518,7 +536,7 @@ CREATE OR REPLACE PROCEDURE insertIntoSpouse(spouse_1_id_variable integer, spous
         spouse_1_id,
         spouse_2_id)
     Values(spouse_1_id_variable, spouse_2_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -534,7 +552,7 @@ CREATE OR REPLACE PROCEDURE insertIntoTransactions(transaction_id_variable integ
         transaction_time,
         transaction_amount)
     Values(transaction_id_variable, transaction_type_variable, transaction_time_variable, transaction_amount_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -548,7 +566,7 @@ CREATE OR REPLACE PROCEDURE insertIntoTransactionStoredInCashDraft(cash_draft_id
         cash_draft_id,
         transaction_id)
     Values(cash_draft_id_variable, transaction_id_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
 
@@ -562,6 +580,6 @@ CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable integer, town_var
         zipcode,
         town)
     Values(zipcode_variable, town_variable)
-    END
+    END;
     $$
     LANGUAGE 'plpgsql';
