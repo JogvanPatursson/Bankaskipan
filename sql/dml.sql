@@ -374,6 +374,15 @@ CREATE OR REPLACE PROCEDURE transferMoney(account_id_1_variable integer, account
 ----------Insert Functions--------
 ----------------------------------
 
+CREATE OR REPLACE PROCEDURE createAccount(customer_id, account_type, balance)
+AS
+$$
+BEGIN
+
+END
+$$
+LANGUAGE 'plpgsql';
+
 --Account--
 CREATE OR REPLACE PROCEDURE insertIntoAccount(account_id_variable integer, account_type_variable varchar(255), balance_variable real)
     AS
