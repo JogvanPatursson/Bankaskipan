@@ -134,3 +134,9 @@ CREATE TABLE BankHasAccount(
     bank_id BIGINT NOT NULL,
     account_id BIGINT NOT NULL
 );
+
+DROP TABLE BankReceivesCashDraft
+CREATE TABLE BankReceivesCashDraft(
+    bank_id BIGINT NOT NULL,
+    cash_draft_id BIGINT NOT NULL
+);
