@@ -120,6 +120,8 @@ AS
 $$
 DECLARE
     balance_check integer;
+    new_trans_id_1 integer;
+    new_trans_id_2 integer;
 BEGIN
     --Update balance of first bank account
     UPDATE account
@@ -131,8 +133,6 @@ BEGIN
     FROM account
     WHERE account_id = account_id_1_variable;
 
-
-
     --Update balance of second bank account
     UPDATE account
     SET balance = balance + amount_variable
@@ -143,14 +143,26 @@ BEGIN
     INSERT INTO transactions
     (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, -amount_variable);
+    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_1;
 
+    
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_1_variable, new_trans_id_1);
+    
     --Add record of transaction for second bank account
     INSERT INTO transactions
     (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount_variable);
+    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_2;
 
+    
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_2_variable, new_trans_id_2);
+    
     IF balance_check < 0
     THEN
         ROLLBACK; 
