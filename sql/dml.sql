@@ -33,9 +33,9 @@ CREATE OR REPLACE FUNCTION checkAccountNumber()
     RETURNS TRIGGER AS
     $$
     DECLARE
-        next_account integer;
-        crossum integer;
-        rest integer;
+        next_account BIGINT;
+        crossum BIGINT;
+        rest BIGINT;
         acc varchar(11);
     
     BEGIN
@@ -180,7 +180,7 @@ $$
 
 --Get all transactions of customer--
 CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
-    RETURNS TABLE(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real)
+    RETURNS TABLE(transaction_id_variable BIGINT, transaction_type_variable varchar(255), transaction_time_variable timestamp, transaction_amount_variable real)
     AS
     $$
     BEGIN
@@ -202,7 +202,7 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
 
 --Show all accounts of person--
 CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
-    RETURNS TABLE(account_id_variable integer)
+    RETURNS TABLE(account_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -223,7 +223,7 @@ CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
 
 --Show all spouses, and children of customer--
 CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar(255))
-    RETURNS TABLE(child_or_spouse_id_variable integer)
+    RETURNS TABLE(child_or_spouse_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -249,7 +249,7 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
 
 --Show all accounts of child--    
 CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255))
-    RETURNS TABLE(account_id_variable integer)
+    RETURNS TABLE(account_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -263,7 +263,7 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfChild(child_id_variable varchar(255)
 
 --Show all accounts of spouse--
 CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(255))
-    RETURNS TABLE(account_id_variable integer)
+    RETURNS TABLE(account_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -332,7 +332,7 @@ CREATE OR REPLACE PROCEDURE checkIfPositive(number_variable number)
 */
 /*
 --Transfer money--
-CREATE OR REPLACE PROCEDURE transferMoney(account_id_1_variable integer, account_id_2_variable integer, amount_variable real )
+CREATE OR REPLACE PROCEDURE transferMoney(account_id_1_variable BIGINT, account_id_2_variable BIGINT, amount_variable real )
     AS
     $$
     BEGIN
@@ -384,14 +384,14 @@ BEGIN
     VALUES(customer_id_variable, account_id_variable);
 
     INSERT INTO account(account_id, account_type, balance)
-    VALUES(1, account_type_variable, balance_variable);
+    VALUES(DEFAULT, account_type_variable, balance_variable);
     COMMIT;
 END
 $$
 LANGUAGE 'plpgsql';
 
 --Account--
-CREATE OR REPLACE PROCEDURE insertIntoAccount(account_id_variable integer, account_type_variable varchar(255), balance_variable real)
+CREATE OR REPLACE PROCEDURE insertIntoAccount(account_type_variable varchar(255), balance_variable real)
     AS
     $$
     BEGIN
@@ -399,14 +399,14 @@ CREATE OR REPLACE PROCEDURE insertIntoAccount(account_id_variable integer, accou
             account_id,
             account_type,
             balance)
-        Values(account_id_variable, account_type_variable, balance_variable);
+        Values(DEFAULT, account_type_variable, balance_variable);
         COMMIT;
     END;
     $$
     LANGUAGE 'plpgsql';
 
 --AccountPerformsTransaction--
-CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_variable integer, transaction_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_variable BIGINT, transaction_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -420,7 +420,7 @@ CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_vari
     LANGUAGE 'plpgsql';
 
 --AccountType--
-CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_id_variable integer, interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_id_variable BIGINT, interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -437,7 +437,7 @@ CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_id_variable integ
 
 
 --CashDraft--
-CREATE OR REPLACE PROCEDURE insertIntoCashDraft(cash_draft_id_variable integer, transaction_date_variable timestamp, transaction_amount_variable real)
+CREATE OR REPLACE PROCEDURE insertIntoCashDraft(cash_draft_id_variable BIGINT, transaction_date_variable timestamp, transaction_amount_variable real)
     AS
     $$
     BEGIN
@@ -453,7 +453,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCashDraft(cash_draft_id_variable integer, 
 
 
 --Customer--
-CREATE OR REPLACE PROCEDURE insertIntoCustomer(customer_id_variable integer, customer_type_variable varchar(255), person_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoCustomer(customer_id_variable BIGINT, customer_type_variable varchar(255), person_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -469,7 +469,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCustomer(customer_id_variable integer, cus
 
 
 --CustomerHasAccount--
-CREATE OR REPLACE PROCEDURE insertIntoCustomerHasAccount(customer_id_variable integer, account_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoCustomerHasAccount(customer_id_variable BIGINT, account_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -484,7 +484,7 @@ CREATE OR REPLACE PROCEDURE insertIntoCustomerHasAccount(customer_id_variable in
 
 
 --Employee--
-CREATE OR REPLACE PROCEDURE insertIntoEmployee(employee_id_variable integer, employee_name_variable varchar(255), employee_salary_variable real, person_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoEmployee(employee_id_variable BIGINT, employee_name_variable varchar(255), employee_salary_variable real, person_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -501,7 +501,7 @@ CREATE OR REPLACE PROCEDURE insertIntoEmployee(employee_id_variable integer, emp
 
 
 --EmployeePerformsCashDraft--
-CREATE OR REPLACE PROCEDURE insertIntoEmployeePerformsCashDraft(employee_id_variable integer, cash_draft_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoEmployeePerformsCashDraft(employee_id_variable BIGINT, cash_draft_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -516,7 +516,7 @@ CREATE OR REPLACE PROCEDURE insertIntoEmployeePerformsCashDraft(employee_id_vari
 
 
 --Parent--
-CREATE OR REPLACE PROCEDURE insertIntoParent(parent_id_variable integer, child_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoParent(parent_id_variable BIGINT, child_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -531,7 +531,7 @@ CREATE OR REPLACE PROCEDURE insertIntoParent(parent_id_variable integer, child_i
 
 
 --Person--
-CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable integer, person_first_name_variable varchar(255), person_last_name_variable varchar(255), date_of_birth_variable timestamp, street_name_variable varchar(255), street_number_variable integer, apartment_number_variable integer, zipcode_variable integer, person_number_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable BIGINT, person_first_name_variable varchar(255), person_last_name_variable varchar(255), date_of_birth_variable timestamp, street_name_variable varchar(255), street_number_variable BIGINT, apartment_number_variable BIGINT, zipcode_variable BIGINT, person_number_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -553,7 +553,7 @@ CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable integer, person_
 
 
 --PersonalNumber--
-CREATE OR REPLACE PROCEDURE insertIntoPersonalNumber(personal_number_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoPersonalNumber(personal_number_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -567,7 +567,7 @@ CREATE OR REPLACE PROCEDURE insertIntoPersonalNumber(personal_number_id_variable
 
 
 --Spouse--
-CREATE OR REPLACE PROCEDURE insertIntoSpouse(spouse_1_id_variable integer, spouse_2_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoSpouse(spouse_1_id_variable BIGINT, spouse_2_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -582,7 +582,7 @@ CREATE OR REPLACE PROCEDURE insertIntoSpouse(spouse_1_id_variable integer, spous
 
 
 --Transactions--
-CREATE OR REPLACE PROCEDURE insertIntoTransactions(transaction_id_variable integer, transaction_type_variable varchar(255), transaction_time_variable timestamp,transaction_amount_variable real)
+CREATE OR REPLACE PROCEDURE insertIntoTransactions(transaction_id_variable BIGINT, transaction_type_variable varchar(255), transaction_time_variable timestamp,transaction_amount_variable real)
     AS
     $$
     BEGIN
@@ -599,7 +599,7 @@ CREATE OR REPLACE PROCEDURE insertIntoTransactions(transaction_id_variable integ
 
 
 --TransactionStoredInCashDraft--
-CREATE OR REPLACE PROCEDURE insertIntoTransactionStoredInCashDraft(cash_draft_id_variable integer, transaction_id_variable integer)
+CREATE OR REPLACE PROCEDURE insertIntoTransactionStoredInCashDraft(cash_draft_id_variable BIGINT, transaction_id_variable BIGINT)
     AS
     $$
     BEGIN
@@ -614,7 +614,7 @@ CREATE OR REPLACE PROCEDURE insertIntoTransactionStoredInCashDraft(cash_draft_id
 
 
 --Zipcode--
-CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable integer, town_variable varchar(255))
+CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable BIGINT, town_variable varchar(255))
     AS
     $$
     BEGIN
