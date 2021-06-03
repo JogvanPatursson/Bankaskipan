@@ -23,9 +23,9 @@ If it is valid it inserts the values from the account insert function into the a
 
 
 */
-DROP TRIGGER triggerCheckAccountNumberInsert ON account;
-DROP FUNCTION checkAccountNumber();
-DROP SEQUENCE account_number_sequence;
+DROP IF EXISTS TRIGGER triggerCheckAccountNumberInsert ON account;
+DROP IF EXISTS FUNCTION checkAccountNumber();
+DROP IF EXISTS SEQUENCE account_number_sequence;
 
 CREATE SEQUENCE account_number_sequence;
 
@@ -41,9 +41,7 @@ CREATE OR REPLACE FUNCTION checkAccountNumber()
     BEGIN
         LOOP
             select nextval('account_number_sequence') INTO next_account;
-            --acc := CONCAT('6969', LPAD(to_char(next_account, '9'), 4, '0'));
             acc := CONCAT('6969', LPAD(TO_CHAR(next_account, 'FM999999999999999'), 6, '0'));
-            --acc := '01111111111';
             crossum :=  5 * to_number(SUBSTR(acc, 1, 1), '9') +
                         4 * to_number(SUBSTR(acc, 2, 1), '9') +
                         3 * to_number(SUBSTR(acc, 3, 1), '9') +
@@ -273,101 +271,6 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(
     END;
     $$
     LANGUAGE 'plpgsql';
-/*
---Login--
-CREATE OR REPLACE PROCEDURE userLogin(personal_number_id_variable number, )
-    RETURN  AS
-    $$
-    BEGIN
-        SELECT 
-    END
-    $$
-    LANGUAGE 'plpgsql';
-*/
---Check if sufficient funds--
-/*
-CREATE OR REPLACE PROCEDURE checkIfSufficientFunds(account_id_variable number, amount_variable number)
-    RETURN boolean
-    AS
-    $$
-    BEGIN
-        IF(amount_variable >= (SELECT balance
-            FROM Account
-            WHERE account_id = account_id_variable))
-            RETURN 1
-        ELSE
-            RETURN 0
-        END IF;
-    END
-    $$
-    LANGUAGE 'plpgsql';
-*/
-------------------------------------
-------------------------------------
-------------------------------------
-/*
-CREATE OR REPLACE PROCEDURE checkbankaccount(account_id_variable number)
-    AS
-    $$
-    BEGIN
-
-    END
-    $$
-
-*/
-
-/*
---Check if number a positive number--
-CREATE OR REPLACE PROCEDURE checkIfPositive(number_variable number)
-    RETURNS BIT AS
-    $$
-    BEGIN
-        IF(number_variable > 0)
-            RETURN 1
-        ELSE
-            RETURN 0
-    END
-    $$
-    LANGUAGE 'plpgsql';
-*/
-/*
---Transfer money--
-CREATE OR REPLACE PROCEDURE transferMoney(account_id_1_variable BIGINT, account_id_2_variable BIGINT, amount_variable real )
-    AS
-    $$
-    BEGIN
-        UPDATE Account
-        SET balance = balance - amount_variable
-        WHERE account_id = account_id_1_variable;
-        
-        UPDATE Account
-        SET balance = balance + amount_variable
-        WHERE account_id = account_id_2_variable;
-
-        INSERT INTO Transactions(   transaction_id,
-                                    transaction_type,
-                                    transaction_time,
-                                    transaction_amount)
-        VALUES( account_id_1_variable,
-                'normal?',
-                CURRENT_TIMESTAMP,
-                -amount_variable);
-
-        INSERT INTO Transactions(   transaction_id,
-                                    transaction_type,
-                                    transaction_time,
-                                    transaction_amount)
-        VALUES( account_id_2_variable,
-                'normal?',
-                CURRENT_TIMESTAMP,
-                amount_variable);
-
-        COMMIT;
-    END
-    
-    $$
-    LANGUAGE 'plpgsql';
-*/
 
 
 ----------------------------------
@@ -379,12 +282,15 @@ CREATE OR REPLACE PROCEDURE inertIntoBankReceivesCashDraft()
 CREATE OR REPLACE PROCEDURE createAccount(customer_id_variable BIGINT, account_type_variable varchar(255), balance_variable REAL)
 AS
 $$
+DECLARE
+    account_id_temp BIGINT;
 BEGIN
-    INSERT INTO customerhasaccount(customer_id, account_id)
-    VALUES(customer_id_variable, account_id_variable);
-
     INSERT INTO account(account_id, account_type, balance)
-    VALUES(DEFAULT, account_type_variable, balance_variable);
+    VALUES(DEFAULT, account_type_variable, balance_variable)
+    RETURNING account_id INTO account_id_temp;
+
+    INSERT INTO customerhasaccount(customer_id, account_id)
+    VALUES(customer_id_variable, account_id_temp);
     COMMIT;
 END
 $$
