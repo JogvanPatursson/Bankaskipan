@@ -68,6 +68,45 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
     EXECUTE PROCEDURE checkAccountNumber();
 
 
+------Check Personnal Number-------
+DROP IF EXISTS TRIGGER triggerCheckPeronalNumberInsert ON Person
+DROP IF EXISTS FUNCTION check checkPersonalNumber();
+
+CREATE OR REPLACE FUNCTION checkPersonalNumber()
+    RETURNS TRIGGER AS
+    $$
+    DECLARE
+        OLD RECORD := NEW;
+        checked_personal_number_id BIGINT;
+        modulus BIGINT;
+    BEGIN
+        checked_personal_number_id :=   (3 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 1, 1), '9') +
+                                        2 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 2, 1), '9') +
+                                        7 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 3, 1), '9') +
+                                        6 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 4, 1), '9') +
+                                        5 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 5, 1), '9') +
+                                        4 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 6, 1), '9') +
+                                        3 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 7, 1), '9') +
+                                        2 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 8, 1), '9') +
+                                        1 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 9, 1), '9'));
+
+        modulus := MOD(checked_personal_number_id, 11);                  
+        IF modulus = 0 THEN
+        NEW.personal_number_id = OLD.personal_number_id;
+        RETURN NEW;
+        ELSE
+            RETURN 
+        END IF;
+        
+    END;
+    $$
+    LANGUAGE 'plpgsql';
+    
+CREATE TRIGGER triggerCheckPeronalNumberInsert
+    BEFORE INSERT
+    ON personalNumber
+    FOR EACH ROW
+    EXECUTE PROCEDURE checkPersonalNumber();
 
 -----------------------------------
 -----Stored Procedure Transfer-----
