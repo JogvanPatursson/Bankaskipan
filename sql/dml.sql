@@ -101,7 +101,7 @@ CREATE OR REPLACE FUNCTION checkPersonalNumber()
     END;
     $$
     LANGUAGE 'plpgsql';
-    
+
 CREATE TRIGGER triggerCheckPeronalNumberInsert
     BEFORE INSERT
     ON personalNumber
@@ -261,24 +261,49 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
     AS
     $$
     BEGIN
-        SELECT child_id
+        SELECT p.*, c.customer_id FROM person p, customer c WHERE c.person_id = p.person_id AND p.person_id IN (
+            SELECT child_id
             FROM Parent
             WHERE parent_id = (
                 SELECT customer_id
                 FROM Customer
-                WHERE customer_id = customer_id_variable
-            )
+                WHERE customer_id = customer_id_variable)
             UNION
             SELECT spouse_2_id
             FROM Spouse
             WHERE spouse_1_id = (
                 SELECT customer_id
                 FROM Customer
+                WHERE customer_id = customer_id_variable)
+            UNION
+            SELECT spouse_1_id
+            FROM Spouse
+            WHERE spouse_2_id = (
+                SELECT customer_id
+                FROM Customer
                 WHERE customer_id = customer_id_variable
-            );
+            )
+        );
     END;
     $$
     LANGUAGE 'plpgsql';
+
+    SELECT p.person_id, p.person_first_name, p.person_last_name
+    FROM person p
+    WHERE p.person_id = (
+        SELECT c.person_id
+            FROM customer c
+            WHERE customer_id = (
+                SELECT s2.spouse_2_id
+                    FROM spouse s1, spouse s2
+                    WHERE s1.spouse_1_id = 1));
+
+SELECT c.customer_id
+    FROM customer c
+    WHERE customer_id = (
+        SELECT s2.spouse_2_id
+            FROM spouse s1, spouse s2
+            WHERE s1.spouse_1_id = 1);
     
 
 --Show all accounts of child--    
@@ -502,7 +527,7 @@ CREATE OR REPLACE PROCEDURE insertIntoPerson(person_id_variable BIGINT, person_f
         street_number,
         apartment_number,
         zipcode,
-        person_number_id)
+        personal_number_id)
     VALUES (person_id_variable, person_first_name_variable, person_last_name_variable, date_of_birth_variable, street_name_variable, street_number_variable, apartment_number_variable, zipcode_variable, person_number_id_variable);
     COMMIT;
     END;
