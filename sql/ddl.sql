@@ -83,8 +83,11 @@ CREATE TABLE Customer(
 DROP TABLE IF EXISTS Account;
 CREATE TABLE Account(
     account_id BIGINT NOT NULL PRIMARY KEY,
-    account_type varchar(255) NOT NULL,
-    balance real NOT NULL
+    account_type_id varchar(255) NOT NULL,
+    balance real NOT NULL,
+    CONSTRAINT fk_account_type
+        FOREIGN KEY(account_type_id)
+            REFERENCES accountType(account_type_id)
 );
 
 --Create Customer Has Account table--
@@ -171,10 +174,10 @@ CREATE TABLE AccountPerformsTransaction(
 --Create Account Type table--
 DROP TABLE IF EXISTS AccountType;
 CREATE TABLE AccountType(
-    account_type_id BIGINT NOT NULL,
-    interest_rate_name varchar(255) NOT NULL,
-    interest_rate_value real NOT NULL,
-    account_id BIGINT NOT NULL
+    account_type_id BIGINT PRIMARY KEY,
+    account_type varchar(255) NOT NULL,
+    interest_rate_value real NOT NULL
+);
 
 --Create Bank table--
 DROP TABLE IF EXISTS Bank;
