@@ -136,14 +136,12 @@ BEGIN
     SET balance = balance + amount_variable
     WHERE account_id = account_id_2_variable;
 
-
     --Add record of transaction for first bank account
     INSERT INTO transactions
     (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
     (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_1;
 
-    
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
     VALUES
@@ -155,7 +153,6 @@ BEGIN
     VALUES
     (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_2;
 
-    
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
     VALUES
@@ -277,7 +274,23 @@ CREATE OR REPLACE FUNCTION showAllAccountsOfSpouse(spouse_2_id_variable varchar(
 ----------Insert Functions--------
 ----------------------------------
 
-CREATE OR REPLACE PROCEDURE inertIntoBankReceivesCashDraft()
+--Calculate interest and update balance--
+CREATE OR REPLACE PROCEDURE calculateInterest()
+AS
+$$
+DECLARE
+    account_row RECORD;
+    interest_rate_variable REAL;
+    new_balance REAL;
+BEGIN
+    UPDATE account a
+    SET balance = a.balance + a.balance * t.interest_rate_value
+    FROM accountType t
+    WHERE a.account_type_id = t.account_type_id;
+
+END;
+$$
+LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE PROCEDURE createAccount(customer_id_variable BIGINT, account_type_variable varchar(255), balance_variable REAL)
 AS
