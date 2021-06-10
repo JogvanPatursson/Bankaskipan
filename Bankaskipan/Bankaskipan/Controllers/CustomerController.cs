@@ -18,59 +18,71 @@ namespace Bankaskipan.Controllers
 			return View("MainProfile", new Person { first_name = "No person selected" });
 		}
 
-		public IActionResult Person(string name)
+		[HttpGet]
+		public IActionResult Person(string userId)
         {
-			Person person = dbConnection.getPersonWithRelatives(name);
+			Person person = dbConnection.getPersonWithRelatives(userId);
 
 			ViewBag.Person = person;
 
-			person.accounts = dbConnection.getAccounts(name);
+			person.accounts = dbConnection.getAccounts(userId);
 
 			return View("MainProfile", person);
         }
 
-		public IActionResult Relative(string person, string relative)
-        {
-			Person tempPerson = dbConnection.getPersonWithRelatives(person);
+		public IActionResult Relative(string userId, string relativeId)
+		{
+			Person Relative = dbConnection.getPersonWithRelatives(relativeId);
 
-			tempPerson.relative = relative;
+			Relative.accounts = dbConnection.getAccounts(relativeId);
 
-			ViewBag.Person = tempPerson;
-			ViewBag.Relative = relative;
+			ViewBag.Relative = Relative;
 
-			return View("Relative", tempPerson);
+			return Person(userId);
         }
 
-		public IActionResult Account(string person, string accountId)
+		public IActionResult Account(string userId, string accountId)
         {
 			Account account;
 
-			account = dbConnection.getAccount(Int32.Parse(accountId));
+			account = dbConnection.getAccount(long.Parse(accountId));
 
 			ViewBag.Account = account;
 
-			return Person(person);
+			return Person(userId);
         }
 
-		public IActionResult RelativeAccount(string main, string relative, string accountId)
+		public IActionResult RelativeAccount(string userId, string relativeId, string accountId)
 		{
-			Person person = dbConnection.getPersonWithRelatives(main);
+			Account account = dbConnection.getAccount(long.Parse(accountId));
 
-			person.relative = relative;
+			ViewBag.Account = account;
 
-			ViewBag.Person = person;
-			ViewBag.Relative = relative;
-
-			return View("Relative", person);
+			return Relative(userId, relativeId);
 		}
 
-		public IActionResult Action(string person, string accountId, string type)
+		public IActionResult Action(string userId, string accountId, string type)
 		{
-			Bankaskipan.Models.Action action = new Bankaskipan.Models.Action() { Type = type };
+			Models.Action action = new Models.Action() { Type = type };
 
 			ViewBag.Action = action;
 
-			return Account(person, accountId);
+			return Account(userId, accountId);
         }
+
+		[HttpPost]
+		public IActionResult Action(ActionViewModel newAction)
+		{
+			string type = newAction.Action.Type;
+
+            switch (type)
+            {
+				case "Deposit":		dbConnection.Deposit(newAction);	break;
+				case "Withdraw":	dbConnection.Withdraw(newAction);	break;
+				case "Transfer":	dbConnection.Transfer(newAction);	break;
+            }
+
+			return RedirectToAction("Account", new { userId = newAction.UserId, accountId = newAction.AccountId });
+		}
 	}
 }

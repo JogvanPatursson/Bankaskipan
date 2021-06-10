@@ -29,7 +29,7 @@ namespace Bankaskipan.Models
 			{
 				Host = "localhost",
 				Port = 5432,
-				Database = "bank",
+				Database = "dogebank",
 				Username = databaseUserName,
 				CommandTimeout = 1024,
 				Timeout = 1024,
@@ -103,11 +103,11 @@ namespace Bankaskipan.Models
 			return (sshClient, forwardedPort.BoundPort);
 		}
 
-		public Person getPersonWithRelatives(string name)
+		public Person getPersonWithRelatives(string userId)
         {
 			connection.Open();
-			NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM person WHERE person_first_name = @name;", connection);
-			cmd.Parameters.AddWithValue("name", name);
+			NpgsqlCommand cmd = new NpgsqlCommand("SELECT person_first_name, person_last_name FROM person, customer WHERE person.person_id = customer.person_id AND customer.customer_id = @userId;", connection);
+			cmd.Parameters.AddWithValue("userId", long.Parse(userId));
 
 			NpgsqlDataReader reader = cmd.ExecuteReader();
 
@@ -119,15 +119,13 @@ namespace Bankaskipan.Models
 				{
 					person = new Person()
 					{
-						person_id = (int)reader["person_id"],
+						userId = long.Parse(userId),
 						first_name = (string)reader["person_first_name"],
 						last_name = (string)reader["person_last_name"]
 					};
 					person.relatives = new List<Person>();
 				}
 			}
-
-
 
 			connection.Close();
 			connection.Open();
@@ -140,8 +138,8 @@ namespace Bankaskipan.Models
 				};
             } else
             {
-				cmd = new NpgsqlCommand("SELECT p1.* FROM person p1, person p2, spouse s WHERE p1.person_id = s.spouse_2_id AND s.spouse_1_id = p2.person_id AND p2.person_first_name = @name;", connection);
-				cmd.Parameters.AddWithValue("name", person.first_name);
+				cmd = new NpgsqlCommand("SELECT showAllRelatives(@userId);", connection);
+				cmd.Parameters.AddWithValue("userId", person.userId);
 
 				reader = cmd.ExecuteReader();
 
@@ -149,32 +147,14 @@ namespace Bankaskipan.Models
 				{
 					while (reader.Read())
 					{
+						var row = (Object[])reader["showallrelatives"];
+
 						person.relatives.Add(new Person()
 						{
-							person_id = (int)reader["person_id"],
-							first_name = (string)reader["person_first_name"],
-							last_name = (string)reader["person_last_name"]
-						});
-					}
-				}
-
-				connection.Close();
-				connection.Open();
-				cmd = new NpgsqlCommand("SELECT p1.* FROM person p1, person p2, parent pa WHERE p1.person_id = pa.child_id AND pa.parent_id = p2.person_id AND p2.person_first_name = @name;", connection);
-				cmd.Parameters.AddWithValue("name", person.first_name);
-
-				reader = cmd.ExecuteReader();
-
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						person.relatives.Add(new Person()
-						{
-							person_id = (int)reader["person_id"],
-							first_name = (string)reader["person_first_name"],
-							last_name = (string)reader["person_last_name"]
-						});
+							first_name = (string)row[1],
+							last_name = (string)row[2],
+							userId = (long)row[3]
+						});;
 					}
 				}
 
@@ -184,21 +164,14 @@ namespace Bankaskipan.Models
 			return person;
         }
 
-		public List<Account> getAccounts(string name)
+		public List<Account> getAccounts(string userId)
         {
 			connection.Open();
 			
 			List<Account> accounts = new List<Account>();
 
-			NpgsqlCommand cmd = new NpgsqlCommand(	"SELECT a.* "+
-													"FROM account a, customerhasaccount has, customer c, person p " +
-													"WHERE a.account_id = has.account_id " +
-													"AND has.customer_id = c.customer_id " +
-													"AND c.person_id = p.person_id " +
-													"AND p.person_first_name = @name; ", connection);
-			
-			
-			cmd.Parameters.AddWithValue("name", name);
+			NpgsqlCommand cmd = new NpgsqlCommand(	"SELECT showAllAccounts(@userId) ", connection);
+			cmd.Parameters.AddWithValue("userId", long.Parse(userId));
 
 			NpgsqlDataReader reader = cmd.ExecuteReader();
 
@@ -206,14 +179,18 @@ namespace Bankaskipan.Models
             {
 				while (reader.Read())
 				{
-					accounts.Add(new Account() { account_id = (int)reader["account_id"] });
+					var row = (Object[])reader["showAllAccounts"];
+
+					accounts.Add(new Account() { account_id = (long)row[0] });
 				}
             }
+
+			connection.Close();
 
 			return accounts;
         }
 
-		public Account getAccount(int account)
+		public Account getAccount(long account)
 		{
 					
 			NpgsqlCommand cmd;
@@ -232,17 +209,15 @@ namespace Bankaskipan.Models
 			{
 				while (reader.Read())
 				{
-					tempAccount.account_id = (int)reader["account_id"];
-					tempAccount.balance = (double)(System.Single)reader["balance"];
-					tempAccount.type = (string)reader["account_type"];
-					//accounts.Add(new Account() { account_id = (int)reader["account_id"] });
+					tempAccount.account_id = (long)reader["account_id"];
+					tempAccount.balance = (float)reader["balance"];
 				}
 			}
 
 			connection.Close();
 			connection.Open();
 
-			cmd = new NpgsqlCommand("SELECT t.* FROM transaction t, accountperformstransaction p, account a WHERE t.transaction_id = p.transaction_id AND p.account_id = a.account_id AND a.account_id = @account;", connection);
+			cmd = new NpgsqlCommand("SELECT getAllTransactions(@account);", connection);
 			cmd.Parameters.AddWithValue("account", account);
 			reader = cmd.ExecuteReader();
 
@@ -250,7 +225,9 @@ namespace Bankaskipan.Models
 			{
 				while (reader.Read())
 				{
-					transactions.Add(new Transaction() { transaction_id = (int)reader["transaction_id"], type = (string)reader["transaction_type"], amount = (double)(System.Single)reader["transaction_amount"] });
+					var row = (Object[])reader["getAllTransactions"];
+
+					transactions.Add(new Transaction() { transaction_id = (long)row[0], type = (string)row[1], transaction_time = (System.DateTime)row[2], amount = (float)row[3] });
 				}
 			}
 
@@ -259,6 +236,46 @@ namespace Bankaskipan.Models
 			connection.Close();
 
 			return tempAccount;
+		}
+
+		public void Deposit(ActionViewModel action)
+        {
+			connection.Open();
+
+			NpgsqlCommand cmd = new NpgsqlCommand("CALL deposit(@fromAccount, @amount);", connection);
+			cmd.Parameters.AddWithValue("fromAccount", long.Parse(action.Action.FromAccount));
+			cmd.Parameters.AddWithValue("amount", (float)action.Action.Amount);
+
+			cmd.ExecuteReader();
+
+			connection.Close();
+		}
+
+		public void Withdraw(ActionViewModel action)
+		{
+			connection.Open();
+
+			NpgsqlCommand cmd = new NpgsqlCommand("CALL withdraw(@fromAccount, @amount);", connection);
+			cmd.Parameters.AddWithValue("fromAccount", long.Parse(action.Action.FromAccount));
+			cmd.Parameters.AddWithValue("amount", (float)action.Action.Amount);
+
+			cmd.ExecuteReader();
+
+			connection.Close();
+		}
+
+		public void Transfer(ActionViewModel action)
+		{
+			connection.Open();
+
+			NpgsqlCommand cmd = new NpgsqlCommand("CALL transfers(@fromAccount, @toAccount, @amount);", connection);
+			cmd.Parameters.AddWithValue("fromAccount", long.Parse(action.Action.FromAccount));
+			cmd.Parameters.AddWithValue("toAccount", long.Parse(action.Action.ToAccount));
+			cmd.Parameters.AddWithValue("amount", (float)action.Action.Amount);
+
+			cmd.ExecuteReader();
+
+			connection.Close();
 		}
 	}
 }

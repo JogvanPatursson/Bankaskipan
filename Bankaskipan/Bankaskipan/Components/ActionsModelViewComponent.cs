@@ -7,9 +7,9 @@ using Bankaskipan.Models;
 
 namespace Bankaskipan.Components
 {
-    public class ActionsViewComponent : ViewComponent
+    public class ActionsModelViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(Bankaskipan.Models.Action action)
+        public IViewComponentResult Invoke(ActionViewModel action)
         {
             return View(action);
         }

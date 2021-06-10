@@ -130,8 +130,12 @@ C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Micro
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\MySqlConnector.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Npgsql.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\SshNet.Security.Cryptography.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\System.Composition.Convention.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\System.Composition.Hosting.dll
@@ -189,7 +193,6 @@ C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\ru\Mi
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.csprojAssemblyReference.cache
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.AssemblyInfoInputs.cache
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.AssemblyInfo.cs
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.csproj.CoreCompileInputs.cache
@@ -202,8 +205,10 @@ C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\scope
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.TagHelpers.input.cache
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.TagHelpers.output.cache
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.RazorCoreGenerate.cache
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Customer\MainProfile.cshtml.g.cs
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.RazorTargetAssemblyInfo.cache
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.RazorTargetAssemblyInfo.cs
@@ -212,12 +217,5 @@ C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Banka
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.dll
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.pdb
 C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.genruntimeconfig.cache
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Customer\MainProfile.cshtml.g.cs
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\MySqlConnector.dll
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\SshNet.Security.Cryptography.dll
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\bin\Debug\netcoreapp3.1\Npgsql.dll
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Relative.cshtml.g.cs
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Accounts\Default.cshtml.g.cs
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
-C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Actions\Default.cshtml.g.cs
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ActionsModel\default.cshtml.g.cs
+C:\Bankaskipan\Bankaskipan\Bankaskipan\Bankaskipan\obj\Debug\netcoreapp3.1\Bankaskipan.csprojAssemblyReference.cache

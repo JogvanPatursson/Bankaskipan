@@ -8,6 +8,7 @@ namespace Bankaskipan.Models
 {
     public class Person
     {
+        public long userId { get; set; }
         [Key]
         public long person_id { get; set; }
 

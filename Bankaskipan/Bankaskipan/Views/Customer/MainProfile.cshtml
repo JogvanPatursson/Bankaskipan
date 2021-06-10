@@ -4,7 +4,17 @@
     ViewData["Title"] = "DogeBank - " + Model.first_name;
 }
 
+@{ 
+    Bankaskipan.Models.Person person;
 
+    if (ViewBag.Relative != null)
+    {
+        person = ViewBag.Relative;
+    } else
+    {
+        person = Model;
+    }
+}
 
 <div class="container">
     <div class="dropdown-container">
@@ -14,24 +24,35 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropper">
+                <li role="presentation"><a role="menuitem" tabindex="-1" class="dropdown-item" href="/Customer/Person/@Model.userId">@Model.first_name</a></li>
                 @if (Model.relatives != null)
                 {
-                    foreach (var person in Model.relatives)
+                    foreach (var p in Model.relatives)
                     {
-                        <li role="presentation"><a role="menuitem" tabindex="-1" class="dropdown-item" href="/Customer/Relative/@Model.first_name/@person.first_name">@person.first_name</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" class="dropdown-item" href="/Customer/Relative/@Model.userId/@p.userId">@p.first_name</a></li>
                     }
                 }
             </ul>
-            <span>@Model.last_name</span>
+            <span>@person.last_name</span>
         </div>
     </div>
     <div id="wrapper">
         <div id="content" class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <div id="accounts" class="btn-group-vertical w25">
-                    @foreach (var account in Model.accounts)
+                    @if (ViewBag.Relative == null)
                     {
-                        <a href="/Customer/Account/@Model.first_name/@account.account_id" class="btn btn-default" role="button">@account.account_id</a>
+                        foreach (var account in person.accounts)
+                        {
+                            <a href="/Customer/Account/@person.userId/@account.account_id" class="btn btn-default" role="button">@account.account_id</a>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var account in person.accounts)
+                        {
+                            <a href="/Customer/RelativeAccount/@Model.userId/@person.userId/@account.account_id" class="btn btn-default" role="button">@account.account_id</a>
+                        }
                     }
                 </div>
             </div>
@@ -72,20 +93,20 @@
                 }
             </div>
         </div>
-        @{ if (ViewBag.Account != null)
+        @{ if (ViewBag.Account != null && ViewBag.Relative == null)
             {
                 var account = ViewBag.Account;
                <div id="actions" class="row">
                     <div class="btn-group-vertical col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Deposit" type="button" class="btn btn-default">Deposit</a>
-                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Withdraw" type="button" class="btn btn-default">Withdraw</a>
-                        <a href="/Customer/Action/@Model.first_name/@account.account_id/Transfer" type="button" class="btn btn-default">Transfer</a>
+                        <a href="/Customer/Action/@Model.userId/@account.account_id/Deposit" type="button" class="btn btn-default">Deposit</a>
+                        <a href="/Customer/Action/@Model.userId/@account.account_id/Withdraw" type="button" class="btn btn-default">Withdraw</a>
+                        <a href="/Customer/Action/@Model.userId/@account.account_id/Transfer" type="button" class="btn btn-default">Transfer</a>
                     </div>
                     <div id="actions-form" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                         @if (ViewBag.Action != null)
                         {
-                            Bankaskipan.Models.Action action = ViewBag.Action;
-                            <vc:actions action=action></vc:actions>
+                            Bankaskipan.Models.ActionViewModel action = new Bankaskipan.Models.ActionViewModel() { Action = ViewBag.Action };
+                            <vc:actions-model action="action"></vc:actions-model>
                         }
                     </div>
                 </div>

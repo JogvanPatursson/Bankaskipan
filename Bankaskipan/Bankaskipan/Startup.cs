@@ -49,16 +49,19 @@ namespace Bankaskipan
                     name: "default",
                     pattern: "{controller=Home}", new { action = "Index" });
 
-                endpoints.MapControllerRoute("person", "Customer/Person/{name}",
+                endpoints.MapControllerRoute("person", "Customer/Person/{userId}",
                     new { controller = "Customer", action = "Person" });
 
-                endpoints.MapControllerRoute("relative", "Customer/Relative/{person}/{relative}",
+                endpoints.MapControllerRoute("relative", "Customer/Relative/{userId}/{relativeId}",
                     new { controller = "Customer", action = "Relative" });
 
-                endpoints.MapControllerRoute("account", "Customer/Account/{person}/{accountId}",
+                endpoints.MapControllerRoute("account", "Customer/Account/{userId}/{accountId}",
                     new { controller = "Customer", action = "Account" });
 
-                endpoints.MapControllerRoute("account", "Customer/Action/{person}/{accountId}/{type}",
+                endpoints.MapControllerRoute("relAccount", "Customer/RelativeAccount/{userId}/{relativeId}/{accountId}",
+                    new { controller = "Customer", action = "RelativeAccount" });
+
+                endpoints.MapControllerRoute("action", "Customer/Action/{userId}/{accountId}/{type}",
                     new { controller = "Customer", action = "Action" });
             });
         }
