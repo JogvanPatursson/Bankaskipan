@@ -220,7 +220,7 @@ CREATE OR REPLACE VIEW TotalBalances AS
     GROUP BY account_type;
 
 --Create a View --
-DROP VIEW relatives;
+DROP VIEW IF EXISTS relatives;
 CREATE OR REPLACE VIEW relatives AS
 (SELECT c1.customer_id AS customer_1_id, p.person_first_name, p.person_last_name, c2.customer_id AS customer_2_id
     FROM customer c1, person p, customer c2, spouse s
