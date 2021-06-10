@@ -24,7 +24,7 @@ CREATE TABLE PersonalNumber(
 --Create Person table--
 DROP TABLE IF EXISTS Person;
 CREATE TABLE Person(
-    person_id BIGINT NOT NULL PRIMARY KEY,
+    person_id SERIAL NOT NULL  PRIMARY KEY,
     person_first_name varchar(255) NOT NULL,
     person_last_name varchar(255) NOT NULL,
     date_of_birth timestamp NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE Spouse(
 --Create Customer table--
 DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer(
-    customer_id BIGINT NOT NULL PRIMARY KEY,
+    customer_id SERIAL NOT NULL PRIMARY KEY,
     customer_type varchar(255) NOT NULL,
     person_id BIGINT NOT NULL,
     CONSTRAINT fk_person
@@ -83,7 +83,7 @@ CREATE TABLE Customer(
 DROP TABLE IF EXISTS Account;
 CREATE TABLE Account(
     account_id BIGINT NOT NULL PRIMARY KEY,
-    account_type_id varchar(255) NOT NULL,
+    account_type_id BIGINT NOT NULL,
     balance real NOT NULL,
     CONSTRAINT fk_account_type
         FOREIGN KEY(account_type_id)
@@ -118,7 +118,7 @@ CREATE TABLE Employee(
 --Create Cash Draft table--
 DROP TABLE IF EXISTS CashDraft;
 CREATE TABLE CashDraft(
-    cash_draft_id BIGINT NOT NULL PRIMARY KEY,
+    cash_draft_id SERIAL NOT NULL PRIMARY KEY,
     transaction_date timestamp NOT NULL,
     transaction_amount real NOT NULL
 );
