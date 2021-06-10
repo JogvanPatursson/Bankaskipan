@@ -251,7 +251,7 @@ CREATE OR REPLACE FUNCTION showAllRelatives(customer_id_variable BIGINT)
         ) LOOP
             customer_1_id_variable := relatives_record.customer_1_id;
             person_first_name_variable := relatives_record.person_first_name;
-            person_last_name_variable := relatives_record.person_first_name;
+            person_last_name_variable := relatives_record.person_last_name;
             customer_2_id_variable := relatives_record.customer_2_id;
 
             RETURN NEXT;
@@ -544,17 +544,21 @@ CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable BIGINT, town_vari
 
 --Populate Zipcode--
 CALL insertIntoZipcode(100, 'Torshavn');
-CALL insertIntoZipcode(160, 'Torshavn');
-CALL insertIntoZipcode(188, 'Hoyvík');
+CALL insertIntoZipcode(160, 'Argir');
 CALL insertIntoZipcode(175, 'Kirkjubø');
+CALL insertIntoZipcode(188, 'Hoyvík');
+CALL insertIntoZipcode();
+
 
 --Populate Personal Number--
 CALL insertIntoPersonalNumber(261290057);
 CALL insertIntoPersonalNumber(150995140);
 CALL insertIntoPersonalNumber(160101233);
+
 CALL insertIntoPersonalNumber(122456900);
 CALL insertIntoPersonalNumber(456789455);
 CALL insertIntoPersonalNumber(444333332);
+
 CALL insertIntoPersonalNumber(535724105);
 CALL insertIntoPersonalNumber(117420043);
 CALL insertIntoPersonalNumber(991112006);
@@ -564,6 +568,19 @@ CALL insertIntoPersonalNumber(160589248);
 
 --Populate Person--
 CALL insertIntoPerson('Hjálmar', 'Heminkrans', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 261290057);
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , , );
+CALL insertIntoPerson('Eyðna', 'Heminkrans', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 150995140);
+CALL insertIntoPerson('Benjamin', 'Hjálmarsson', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 160101233);
+
+CALL insertIntoPerson('Hemmingur', 'Baraldarrunnur', CURRENT_TIMESTAMP, 'við Ovaru Kai', 1, NULL, 160, 122456900);
+CALL insertIntoPerson('Karla Magna', 'Gregorsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 456789455);
+CALL insertIntoPerson('Martina', 'Hemmingsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 444333332);
+
+CALL insertIntoPerson('Gunntjaldur', 'við Móruvatn', CURRENT_TIMESTAMP, 'Móruvatnsvegur', 46, NULL, , );
+
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
 
 
