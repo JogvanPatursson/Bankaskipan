@@ -232,6 +232,7 @@ BEGIN
     THEN
         ROLLBACK;
     ELSIF vault_check < 0
+    THEN
         ROLLBACK;
     ELSE
         COMMIT;
