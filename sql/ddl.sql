@@ -11,20 +11,20 @@
 --Create Zipcode table--
 DROP TABLE IF EXISTS Zipcode;
 CREATE TABLE Zipcode(
-    zipcode BIGINT NOT NULL PRIMARY KEY,
+    zipcode BIGINT PRIMARY KEY,
     town varchar(255) NOT NULL
     );
 
 --Create Personal Number table--
 DROP TABLE IF EXISTS PersonalNumber;
 CREATE TABLE PersonalNumber(
-    personal_number_id BIGINT NOT NULL PRIMARY KEY
+    personal_number_id BIGINT PRIMARY KEY
     );
 
 --Create Person table--
 DROP TABLE IF EXISTS Person;
 CREATE TABLE Person(
-    person_id SERIAL NOT NULL  PRIMARY KEY,
+    person_id SERIAL PRIMARY KEY,
     person_first_name varchar(255) NOT NULL,
     person_last_name varchar(255) NOT NULL,
     date_of_birth timestamp NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE Spouse(
 --Create Customer table--
 DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer(
-    customer_id SERIAL NOT NULL PRIMARY KEY,
+    customer_id SERIAL PRIMARY KEY,
     customer_type varchar(255) NOT NULL,
     person_id BIGINT NOT NULL,
     CONSTRAINT fk_person
@@ -79,10 +79,18 @@ CREATE TABLE Customer(
             REFERENCES Person(person_id)
 );
 
+--Create Account Type table--
+DROP TABLE IF EXISTS AccountType;
+CREATE TABLE AccountType(
+    account_type_id SERIAL PRIMARY KEY,
+    account_type varchar(255) NOT NULL,
+    interest_rate_value real NOT NULL
+);
+
 --Create Account table--
 DROP TABLE IF EXISTS Account;
 CREATE TABLE Account(
-    account_id BIGINT NOT NULL PRIMARY KEY,
+    account_id BIGINT PRIMARY KEY,
     account_type_id BIGINT NOT NULL,
     balance real NOT NULL,
     CONSTRAINT fk_account_type
@@ -106,7 +114,7 @@ CREATE TABLE CustomerHasAccount(
 --Create Employee table--
 DROP TABLE IF EXISTS Employee;
 CREATE TABLE Employee(
-    employee_id BIGINT NOT NULL PRIMARY KEY,
+    employee_id SERIAL PRIMARY KEY,
     employee_name varchar(255) NOT NULL,
     employee_salary BIGINT NOT NULL,
     person_id BIGINT NOT NULL,
@@ -118,7 +126,7 @@ CREATE TABLE Employee(
 --Create Cash Draft table--
 DROP TABLE IF EXISTS CashDraft;
 CREATE TABLE CashDraft(
-    cash_draft_id SERIAL NOT NULL PRIMARY KEY,
+    cash_draft_id SERIAL PRIMARY KEY,
     transaction_date timestamp NOT NULL,
     transaction_amount real NOT NULL
 );
@@ -139,7 +147,7 @@ CREATE TABLE EmployeePerformsCashDraft(
 --Create Transactions table--
 DROP TABLE IF EXISTS Transactions;
 CREATE TABLE Transactions(
-    transaction_id SERIAL NOT NULL PRIMARY KEY,
+    transaction_id SERIAL PRIMARY KEY,
     transaction_type varchar(255) NOT NULL,
     transaction_time timestamp NOT NULL,
     transaction_amount real NOT NULL
@@ -169,14 +177,6 @@ CREATE TABLE AccountPerformsTransaction(
     CONSTRAINT fk_transaction
         FOREIGN KEY(transaction_id)
             REFERENCES Transactions(transaction_id)
-);
-
---Create Account Type table--
-DROP TABLE IF EXISTS AccountType;
-CREATE TABLE AccountType(
-    account_type_id BIGINT PRIMARY KEY,
-    account_type varchar(255) NOT NULL,
-    interest_rate_value real NOT NULL
 );
 
 --Create Bank table--
@@ -214,6 +214,7 @@ CREATE TABLE BankReceivesCashDraft(
 
 --Create a View for getting total balances
 CREATE OR REPLACE VIEW TotalBalances AS 
-    SELECT account_type, SUM(balance) AS sum
-    FROM account
+    SELECT acct.account_type, SUM(acc.balance) AS sum
+    FROM accountType acct, account acc
+    WHERE acct.account_type_id = acc.account_type_id
     GROUP BY account_type;
