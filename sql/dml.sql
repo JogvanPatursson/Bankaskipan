@@ -144,7 +144,7 @@ BEGIN
     INSERT INTO transactions
     (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (DEFAULT, 'Outgoing', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_1;
+    (DEFAULT, 'Transfer', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_1;
 
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
@@ -155,7 +155,7 @@ BEGIN
     INSERT INTO transactions
     (transaction_id, transaction_type, transaction_time, transaction_amount)
     VALUES
-    (DEFAULT, 'Incoming', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_2;
+    (DEFAULT, 'Transfer', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_2;
 
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
@@ -304,10 +304,10 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable BIGINT)
         FOR transactions_record IN (
             SELECT transaction_id, transaction_type, transaction_time, transaction_amount
             FROM Transactions
-            WHERE transaction_id = (
+            WHERE transaction_id IN (
                 SELECT transaction_id
                 FROM AccountPerformsTransaction
-                WHERE account_id = (
+                WHERE account_id IN (
                     SELECT account_id
                     FROM Account
                     WHERE account_id = account_id_variable
