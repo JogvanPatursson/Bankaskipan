@@ -105,7 +105,7 @@ CREATE TABLE CustomerHasAccount(
     account_id BIGINT NOT NULL,
     CONSTRAINT fk_customer
         FOREIGN KEY(customer_id)
-            REFERENCES Person(person_id),
+            REFERENCES Customer(customer_id),
     CONSTRAINT fk_account
         FOREIGN KEY(account_id)
             REFERENCES Account(account_id)
@@ -218,3 +218,24 @@ CREATE OR REPLACE VIEW TotalBalances AS
     FROM accountType acct, account acc
     WHERE acct.account_type_id = acc.account_type_id
     GROUP BY account_type;
+
+--Create a View --
+DROP VIEW relatives;
+CREATE OR REPLACE VIEW relatives AS
+(SELECT c1.customer_id AS customer_1_id, p.person_first_name, p.person_last_name, c2.customer_id AS customer_2_id
+    FROM customer c1, person p, customer c2, spouse s
+    WHERE s.spouse_1_id = c1.customer_id
+        AND s.spouse_2_id = c2.customer_id
+        AND c2.person_id = p.person_id)
+UNION
+(SELECT c2.customer_id AS customer_2_id, p.person_first_name, p.person_last_name, c1.customer_id AS customer_1_id
+    FROM customer c1, person p, customer c2, spouse s
+    WHERE s.spouse_1_id = c1.customer_id
+        AND s.spouse_2_id = c2.customer_id
+        AND c1.person_id = p.person_id)
+UNION
+(SELECT c1.customer_id AS customer_1_id, p.person_first_name, p.person_last_name, c2.customer_id AS customer_2_id
+    FROM customer c1, person p, customer c2, parent pa
+    WHERE pa.parent_id = c1.customer_id
+        AND pa.child_id = c2.customer_id
+        AND c2.person_id = p.person_id);
