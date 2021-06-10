@@ -245,7 +245,7 @@ CREATE OR REPLACE FUNCTION showAllRelatives(customer_id_variable BIGINT)
         relatives_record RECORD;
     BEGIN
         FOR relatives_record IN (
-            SELECT customer_1_id, person_first_name, person_first_name, customer_2_id
+            SELECT customer_1_id, person_first_name, person_last_name, customer_2_id
             FROM relatives
             WHERE customer_1_id = customer_id_variable
         ) LOOP
@@ -547,6 +547,7 @@ CALL insertIntoZipcode(100, 'Torshavn');
 CALL insertIntoZipcode(160, 'Argir');
 CALL insertIntoZipcode(175, 'Kirkjubø');
 CALL insertIntoZipcode(188, 'Hoyvík');
+CALL insertIntoZipcode();
 CALL insertIntoZipcode();
 
 
