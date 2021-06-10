@@ -23,9 +23,9 @@ If it is valid it inserts the values from the account insert function into the a
 
 
 */
-DROP IF EXISTS TRIGGER triggerCheckAccountNumberInsert ON account;
-DROP IF EXISTS FUNCTION checkAccountNumber();
-DROP IF EXISTS SEQUENCE account_number_sequence;
+DROP TRIGGER IF EXISTS triggerCheckAccountNumberInsert ON account;
+DROP FUNCTION IF EXISTS checkAccountNumber();
+DROP SEQUENCE IF EXISTS account_number_sequence;
 
 CREATE SEQUENCE account_number_sequence;
 
@@ -69,8 +69,7 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
 
 
 ------Check Personnal Number-------
-DROP IF EXISTS TRIGGER triggerCheckPeronalNumberInsert ON Person
-DROP IF EXISTS FUNCTION check checkPersonalNumber();
+DROP TRIGGER IF EXISTS triggerCheckPeronalNumberInsert ON Person;
 CREATE OR REPLACE FUNCTION checkPersonalNumber()
     RETURNS TRIGGER AS
     $$
@@ -114,7 +113,7 @@ CREATE TRIGGER triggerCheckPeronalNumberInsert
 -----Stored Procedure Transfer-----
 -----------------------------------
 
-DROP SEQUENCE transaction_sequence;
+DROP SEQUENCE IF EXISTS transaction_sequence;
 CREATE SEQUENCE transaction_sequence;
 
 
@@ -211,7 +210,6 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable BIGINT)
     LANGUAGE 'plpgsql';
 
 --Show all accounts of person--
-DROP FUNCTION showAllAccounts(customer_id_variable BIGINT);
 CREATE OR REPLACE FUNCTION showAllAccounts(customer_id_variable BIGINT)
     RETURNS TABLE(account_id_variable BIGINT, balance_variable REAL)
     AS
@@ -284,14 +282,14 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE PROCEDURE createAccount(customer_id_variable BIGINT, account_type_variable varchar(255), balance_variable REAL)
+CREATE OR REPLACE PROCEDURE createAccount(customer_id_variable BIGINT, account_type_id_variable BIGINT, balance_variable REAL)
 AS
 $$
 DECLARE
     account_id_temp BIGINT;
 BEGIN
-    INSERT INTO account(account_id, account_type, balance)
-    VALUES(DEFAULT, account_type_variable, balance_variable)
+    INSERT INTO account(account_id, account_type_id, balance)
+    VALUES(DEFAULT, account_type_id_variable, balance_variable)
     RETURNING account_id INTO account_id_temp;
 
     INSERT INTO customerhasaccount(customer_id, account_id)
@@ -302,15 +300,15 @@ $$
 LANGUAGE 'plpgsql';
 
 --Account--
-CREATE OR REPLACE PROCEDURE insertIntoAccount(account_type_variable varchar(255), balance_variable real)
+CREATE OR REPLACE PROCEDURE insertIntoAccount(account_type_id_variable BIGINT, balance_variable real)
     AS
     $$
     BEGIN
         INSERT INTO Account(
             account_id,
-            account_type,
+            account_type_id,
             balance)
-        Values(DEFAULT, account_type_variable, balance_variable);
+        Values(DEFAULT, account_type_id_variable, balance_variable);
         COMMIT;
     END;
     $$
@@ -331,16 +329,15 @@ CREATE OR REPLACE PROCEDURE insertIntoAccountPerformsTransaction(account_id_vari
     LANGUAGE 'plpgsql';
 
 --AccountType--
-CREATE OR REPLACE PROCEDURE insertIntoAccountType(interest_rate_name_variable varchar(255), interest_rate_value_variable real, account_id_variable BIGINT)
+CREATE OR REPLACE PROCEDURE insertIntoAccountType(account_type_variable varchar(255), interest_rate_value_variable real)
     AS
     $$
     BEGIN
     INSERT INTO AccountType(
         account_type_id,
-        interest_rate_name,
-        interest_rate_value,
-        account_id)
-    Values(DEFAULT, interest_rate_name_variable, interest_rate_value_variable, account_id_variable);
+        account_type,
+        interest_rate_value)
+    Values(DEFAULT, account_type_variable, interest_rate_value_variable);
     COMMIT;
     END;
     $$
@@ -538,79 +535,33 @@ CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable BIGINT, town_vari
     $$
     LANGUAGE 'plpgsql';
 
-------------------------------
---------Populate Data---------
-------------------------------
+--Bank--
+CREATE OR REPLACE PROCEDURE insertIntoBank(bank_id_variable BIGINT, bank_name_variable VARCHAR(255), bank_registration_number_variable BIGINT)
+    AS
+    $$
+    BEGIN
+    INSERT INTO Bank(
+        bank_id,
+        bank_name,
+        bank_registration_number
+    )
+    VALUES(bank_id_variable, bank_name_variable, bank_registration_number_variable);
+    COMMIT;
+    END;
+    $$
+    LANGUAGE 'plpgsql';
 
---Populate Zipcode--
-CALL insertIntoZipcode(100, 'Torshavn');
-CALL insertIntoZipcode(160, 'Argir');
-CALL insertIntoZipcode(175, 'Kirkjubø');
-CALL insertIntoZipcode(188, 'Hoyvík');
-CALL insertIntoZipcode(666, 'Gøtueiði');
-CALL insertIntoZipcode(700, 'Klaksvík');
-
-
---Populate Personal Number--
-CALL insertIntoPersonalNumber(261290057);
-CALL insertIntoPersonalNumber(150995140);
-CALL insertIntoPersonalNumber(160101233);
-
-CALL insertIntoPersonalNumber(122456900);
-CALL insertIntoPersonalNumber(456789455);
-CALL insertIntoPersonalNumber(444333332);
-
-CALL insertIntoPersonalNumber(535724105);
-
-CALL insertIntoPersonalNumber(117420043);
-CALL insertIntoPersonalNumber(991112006);
-CALL insertIntoPersonalNumber(241204006);
-CALL insertIntoPersonalNumber(241204103);
-CALL insertIntoPersonalNumber(160589248);
-
---Populate Person--
-CALL insertIntoPerson('Hjálmar', 'Heminkrans', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 261290057);
-CALL insertIntoPerson('Eyðna', 'Heminkrans', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 150995140);
-CALL insertIntoPerson('Benjamin', 'Hjálmarsson', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 160101233);
-
-CALL insertIntoPerson('Hemmingur', 'Baraldarrunnur', CURRENT_TIMESTAMP, 'við Ovaru Kai', 1, NULL, 160, 122456900);
-CALL insertIntoPerson('Karla Magna', 'Gregorsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 456789455);
-CALL insertIntoPerson('Martina', 'Hemmingsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 444333332);
-
-CALL insertIntoPerson('Gunntjaldur', 'við Móruvatn', CURRENT_TIMESTAMP, 'Móruvatnsvegur', 46, NULL, 700, 535724105);
-
-CALL insertIntoPerson('Absalon', 'Jøkularklettur', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 117420043);
-CALL insertIntoPerson('Vilhelmina', 'í Hvítanesi', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 991112006);
-CALL insertIntoPerson('Frida', 'Absalonsdóttir', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 241204006);
-CALL insertIntoPerson('Fríi', 'Absalonsson', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 241204103);
-CALL insertIntoPerson('Skrædla', 'Absalonsdóttir', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 160589248);
-
-CALL insertIntoCustomer('Normal', 1);
-CALL insertIntoCustomer('Normal', 2);
-CALL insertIntoCustomer('Normal', 3);
-
-CALL insertIntoCustomer('Normal', 4);
-CALL insertIntoCustomer('Normal', 5);
-CALL insertIntoCustomer('Normal', 6);
-
-CALL insertIntoCustomer('Normal', 7);
-
-CALL insertIntoCustomer('Normal', 8);
-CALL insertIntoCustomer('Normal', 9);
-CALL insertIntoCustomer('Normal', 10);
-CALL insertIntoCustomer('Normal', 11);
-CALL insertIntoCustomer('Normal', 12);
-
-CALL insertIntoParent(1, 3);
-CALL insertIntoParent(2, 3);
-CALL insertIntoParent(4, 6);
-CALL insertIntoParent(5, 6);
-CALL insertIntoParent(8, 10);
-CALL insertIntoParent(8, 11);
-CALL insertIntoParent(8, 12);
-CALL insertIntoParent(9, 10);
-CALL insertIntoParent(9, 11);
-CALL insertIntoParent(9, 12);
-
-CALL insertIntoSpouse(1, 2);
-CALL insertIntoSpouse(8, 9);
+--Bank Has Account--
+CREATE OR REPLACE PROCEDURE insertIntoBankHasAccount(bank_id_variable BIGINT, account_id_variable BIGINT)
+    AS
+    $$
+    BEGIN
+    INSERT INTO BankHasAccount(
+        bank_id,
+        account_id
+    )
+    VALUES(bank_id_variable, account_id_variable);
+    COMMIT;
+    END;
+    $$
+    LANGUAGE 'plpgsql';
