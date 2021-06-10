@@ -119,7 +119,6 @@ CREATE SEQUENCE transaction_sequence;
 
 
 CREATE OR REPLACE PROCEDURE transfers(account_id_1_variable BIGINT, account_id_2_variable BIGINT, amount_variable real) 
-LANGUAGE 'plpgsql'
 AS
 $$
 DECLARE
@@ -172,7 +171,7 @@ BEGIN
     END IF;
 END;
 $$
-
+LANGUAGE 'plpgsql';
 
 -----------------------------------
 --------Select Functions-----------
@@ -544,4 +543,27 @@ CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable BIGINT, town_vari
 ------------------------------
 
 --Populate Zipcode--
-CALL insertIntoZipcode()
+CALL insertIntoZipcode(100, 'Torshavn');
+CALL insertIntoZipcode(160, 'Torshavn');
+CALL insertIntoZipcode(188, 'Hoyvík');
+CALL insertIntoZipcode(175, 'Kirkjubø');
+
+--Populate Personal Number--
+CALL insertIntoPersonalNumber(261290057);
+CALL insertIntoPersonalNumber(150995140);
+CALL insertIntoPersonalNumber(160101233);
+CALL insertIntoPersonalNumber(122456900);
+CALL insertIntoPersonalNumber(456789455);
+CALL insertIntoPersonalNumber(444333332);
+CALL insertIntoPersonalNumber(535724105);
+CALL insertIntoPersonalNumber(117420043);
+CALL insertIntoPersonalNumber(991112006);
+CALL insertIntoPersonalNumber(241204006);
+CALL insertIntoPersonalNumber(241204103);
+CALL insertIntoPersonalNumber(160589248);
+
+--Populate Person--
+CALL insertIntoPerson('Hjálmar', 'Heminkrans', CURRENT_TIMESTAMP, 'Fjøruvegur', 33, NULL, 188, 261290057);
+CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , , );
+
+
