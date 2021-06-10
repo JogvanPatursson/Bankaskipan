@@ -114,41 +114,6 @@ CREATE TRIGGER triggerCheckPeronalNumberInsert
 -----Stored Procedure Transfer-----
 -----------------------------------
 
---Drop Triggers
-DROP TRIGGER trigger_transactions_insert ON transactions;
-DROP TRIGGER trigger_account_balance_insert ON account;
-
---Trigger when logging transacitons
-CREATE TRIGGER trigger_transactions_insert
-    BEFORE INSERT
-    ON transactions
-    FOR EACH ROW
-    BEGIN
-
-    END;
-
---Trigger when updating bank account balance
-CREATE TRIGGER trigger_account_balance_insert
-    BEFORE UPDATE
-    ON account
-    FOR EACH ROW
-    EXECUTE PROCEDURE
-
---Trigger Procedure to check if bank balance is enough
-CREATE OR REPLACE FUNCTION checkbalance()
-RETURNS TRIGGER
-AS
-$$
-BEGIN
-    --Check if amount is larger than bank balance
-    IF NEW.amount < 0
-        IF NEW.amount > OLD.balance
-        --RETURN NULL/ABORT??
-    END IF;
-END;
-$$
-LANGUAGE 'plpgsql';
-
 DROP SEQUENCE transaction_sequence;
 CREATE SEQUENCE transaction_sequence;
 
@@ -573,3 +538,10 @@ CREATE OR REPLACE PROCEDURE insertIntoZipcode(zipcode_variable BIGINT, town_vari
     END;
     $$
     LANGUAGE 'plpgsql';
+
+------------------------------
+--------Populate Data---------
+------------------------------
+
+--Populate Zipcode--
+CALL insertIntoZipcode()
