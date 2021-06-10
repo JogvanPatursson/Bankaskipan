@@ -71,7 +71,6 @@ CREATE TRIGGER triggerCheckAccountNumberInsert
 ------Check Personnal Number-------
 DROP IF EXISTS TRIGGER triggerCheckPeronalNumberInsert ON Person
 DROP IF EXISTS FUNCTION check checkPersonalNumber();
-
 CREATE OR REPLACE FUNCTION checkPersonalNumber()
     RETURNS TRIGGER AS
     $$
@@ -79,28 +78,31 @@ CREATE OR REPLACE FUNCTION checkPersonalNumber()
         OLD RECORD := NEW;
         checked_personal_number_id BIGINT;
         modulus BIGINT;
+        check_text VARCHAR(9);
     BEGIN
-        checked_personal_number_id :=   (3 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 1, 1), '9') +
-                                        2 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 2, 1), '9') +
-                                        7 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 3, 1), '9') +
-                                        6 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 4, 1), '9') +
-                                        5 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 5, 1), '9') +
-                                        4 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 6, 1), '9') +
-                                        3 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 7, 1), '9') +
-                                        2 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 8, 1), '9') +
-                                        1 * to_number(SUBSTR(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 9, 1), '9'));
+        check_text := LPAD(TO_CHAR(OLD.personal_number_id, 'FM999999999'), 9, '0');
+
+        checked_personal_number_id :=   (3 * to_number(SUBSTR(check_text, 1, 1), '9') +
+                                        2 * to_number(SUBSTR(check_text, 2, 1), '9') +
+                                        7 * to_number(SUBSTR(check_text, 3, 1), '9') +
+                                        6 * to_number(SUBSTR(check_text, 4, 1), '9') +
+                                        5 * to_number(SUBSTR(check_text, 5, 1), '9') +
+                                        4 * to_number(SUBSTR(check_text, 6, 1), '9') +
+                                        3 * to_number(SUBSTR(check_text, 7, 1), '9') +
+                                        2 * to_number(SUBSTR(check_text, 8, 1), '9') +
+                                        1 * to_number(SUBSTR(check_text, 9, 1), '9'));
 
         modulus := MOD(checked_personal_number_id, 11);                  
         IF modulus = 0 THEN
         NEW.personal_number_id = OLD.personal_number_id;
         RETURN NEW;
         ELSE
-            RETURN 
+            RETURN NULL;
         END IF;
-        
     END;
     $$
     LANGUAGE 'plpgsql';
+
 
 CREATE TRIGGER triggerCheckPeronalNumberInsert
     BEFORE INSERT
@@ -235,7 +237,7 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
     LANGUAGE 'plpgsql';
 
 --Show all accounts of person--
-CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
+CREATE OR REPLACE FUNCTION showAllAccounts(customer_id_variable BIGINT)
     RETURNS TABLE(account_id_variable BIGINT)
     AS
     $$
@@ -245,10 +247,7 @@ CREATE OR REPLACE FUNCTION showAllAccounts(person_id_variable varchar(255))
         WHERE account_id = (
             SELECT account_id
             FROM CustomerHasAccount
-            WHERE customer_id = (
-                SELECT customer_id
-                FROM Customer
-                WHERE person_id = person_id_variable
+            WHERE customer_id = customer_id_variable
             )
         );
     END;
@@ -288,28 +287,27 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
     $$
     LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE VIEW relatives_names AS
-SELECT p.person_id, p.person_first_name, p.person_last_name
-    FROM person p
-    WHERE p.person_id = (
-        SELECT c.person_id
-            FROM customer c
-            WHERE customer_id = (
-                SELECT s2.spouse_2_id
-                    FROM spouse s1, spouse s2
-                    WHERE s1.spouse_1_id = 1));
+DROP VIEW relatives;
+CREATE OR REPLACE VIEW relatives AS
+(SELECT c1.customer_id AS customer_1_id, p.person_first_name, p.person_last_name, c2.customer_id AS customer_2_id
+    FROM customer c1, person p, customer c2, spouse s
+    WHERE s.spouse_1_id = c1.customer_id
+        AND s.spouse_2_id = c2.customer_id
+        AND c2.person_id = p.person_id)
+UNION
+(SELECT c2.customer_id AS customer_2_id, p.person_first_name, p.person_last_name, c1.customer_id AS customer_1_id
+    FROM customer c1, person p, customer c2, spouse s
+    WHERE s.spouse_1_id = c1.customer_id
+        AND s.spouse_2_id = c2.customer_id
+        AND c1.person_id = p.person_id)
+UNION
+(SELECT c1.customer_id AS customer_1_id, p.person_first_name, p.person_last_name, c2.customer_id AS customer_2_id
+    FROM customer c1, person p, customer c2, parent pa
+    WHERE pa.parent_id = c1.customer_id
+        AND pa.child_id = c2.customer_id
+        AND c2.person_id = p.person_id);
 
-CREATE OR REPLACE VIEW relatives_id AS
-SELECT c.customer_id, p.person_id
-    FROM customer c, person p
-    WHERE customer_id = (
-        SELECT s2.spouse_2_id
-            FROM spouse s1, spouse s2
-            WHERE s1.spouse_1_id = 1);
 
-SELECT a.person_first_name, a.person_last_name, b.person_id FROM relatives_names a
-JOIN relatives_id b
-ON a.person_id = b.person_id;
     
 
 --Show all accounts of child--    
