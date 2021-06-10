@@ -547,8 +547,8 @@ CALL insertIntoZipcode(100, 'Torshavn');
 CALL insertIntoZipcode(160, 'Argir');
 CALL insertIntoZipcode(175, 'Kirkjubø');
 CALL insertIntoZipcode(188, 'Hoyvík');
-CALL insertIntoZipcode();
-CALL insertIntoZipcode();
+CALL insertIntoZipcode(666, 'Gøtueiði');
+CALL insertIntoZipcode(700, 'Klaksvík');
 
 
 --Populate Personal Number--
@@ -561,6 +561,7 @@ CALL insertIntoPersonalNumber(456789455);
 CALL insertIntoPersonalNumber(444333332);
 
 CALL insertIntoPersonalNumber(535724105);
+
 CALL insertIntoPersonalNumber(117420043);
 CALL insertIntoPersonalNumber(991112006);
 CALL insertIntoPersonalNumber(241204006);
@@ -576,12 +577,40 @@ CALL insertIntoPerson('Hemmingur', 'Baraldarrunnur', CURRENT_TIMESTAMP, 'við Ov
 CALL insertIntoPerson('Karla Magna', 'Gregorsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 456789455);
 CALL insertIntoPerson('Martina', 'Hemmingsdóttir', CURRENT_TIMESTAMP, 'í Doktaragrund', 6, NULL, 100, 444333332);
 
-CALL insertIntoPerson('Gunntjaldur', 'við Móruvatn', CURRENT_TIMESTAMP, 'Móruvatnsvegur', 46, NULL, , );
+CALL insertIntoPerson('Gunntjaldur', 'við Móruvatn', CURRENT_TIMESTAMP, 'Móruvatnsvegur', 46, NULL, 700, 535724105);
 
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
-CALL insertIntoPerson('', '', CURRENT_TIMESTAMP, '', , NULL, , );
+CALL insertIntoPerson('Absalon', 'Jøkularklettur', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 117420043);
+CALL insertIntoPerson('Vilhelmina', 'í Hvítanesi', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 991112006);
+CALL insertIntoPerson('Frida', 'Absalonsdóttir', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 241204006);
+CALL insertIntoPerson('Fríi', 'Absalonsson', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 241204103);
+CALL insertIntoPerson('Skrædla', 'Absalonsdóttir', CURRENT_TIMESTAMP, 'Morkranersargøta', 3, NULL, 666, 160589248);
 
+CALL insertIntoCustomer('Normal', 1);
+CALL insertIntoCustomer('Normal', 2);
+CALL insertIntoCustomer('Normal', 3);
 
+CALL insertIntoCustomer('Normal', 4);
+CALL insertIntoCustomer('Normal', 5);
+CALL insertIntoCustomer('Normal', 6);
+
+CALL insertIntoCustomer('Normal', 7);
+
+CALL insertIntoCustomer('Normal', 8);
+CALL insertIntoCustomer('Normal', 9);
+CALL insertIntoCustomer('Normal', 10);
+CALL insertIntoCustomer('Normal', 11);
+CALL insertIntoCustomer('Normal', 12);
+
+CALL insertIntoParent(1, 3);
+CALL insertIntoParent(2, 3);
+CALL insertIntoParent(4, 6);
+CALL insertIntoParent(5, 6);
+CALL insertIntoParent(8, 10);
+CALL insertIntoParent(8, 11);
+CALL insertIntoParent(8, 12);
+CALL insertIntoParent(9, 10);
+CALL insertIntoParent(9, 11);
+CALL insertIntoParent(9, 12);
+
+CALL insertIntoSpouse(1, 2);
+CALL insertIntoSpouse(8, 9);
