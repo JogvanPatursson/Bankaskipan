@@ -117,11 +117,11 @@ DROP SEQUENCE IF EXISTS transaction_sequence;
 CREATE SEQUENCE transaction_sequence;
 
 
-CREATE OR REPLACE PROCEDURE transfers(account_id_1_variable BIGINT, account_id_2_variable BIGINT, amount_variable real) 
+CREATE OR REPLACE PROCEDURE transfers(account_id_1_variable BIGINT, account_id_2_variable BIGINT, amount_variable REAL) 
 AS
 $$
 DECLARE
-    balance_check BIGINT;
+    balance_check REAL;
     new_trans_id_1 BIGINT;
     new_trans_id_2 BIGINT;
 BEGIN
@@ -168,6 +168,122 @@ BEGIN
     ELSE
         commit;
     END IF;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+-----------------------------------
+----Stored Procedure Withdraw------
+-----------------------------------
+
+CREATE OR REPLACE PROCEDURE widthdraw(account_id_variable BIGINT, widthdraw_amount REAL)
+AS
+$$
+DECLARE
+    balance_check REAL;
+    vault_check REAL;
+    new_trans_id_1 BIGINT;
+    new_trans_id_2 BIGINT;
+BEGIN
+    --Update balance of bank account
+    UPDATE account
+    SET balance = balance - amount_variable
+    WHERE account_id = account_id_variable;
+
+    SELECT balance
+    INTO balance_check
+    FROM account
+    WHERE account_id = account_id_1_variable;
+
+    --Update balance of bank vault
+    UPDATE account
+    SET balance = balance - amount_variable
+    WHERE account_id = 69690000016;
+
+    SELECT balance
+    INTO vault_check
+    FROM account
+    WHERE account_id = account_id_1_variable;
+
+    --Add record of withdraw for bank account
+    INSERT INTO transactions
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
+    VALUES
+    (DEFAULT, 'Withdraw', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_1;
+
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_1_variable, new_trans_id_1);
+
+    --Add record of transaction for bank vault
+    INSERT INTO transactions
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
+    VALUES
+    (DEFAULT, 'withdraw', CURRENT_TIMESTAMP, -amount_variable) RETURNING transaction_id INTO new_trans_id_2;
+
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_2_variable, new_trans_id_2);
+
+    --Check if balance is zero
+    IF balance_check < 0 
+    THEN
+        ROLLBACK;
+    ELSIF vault_check < 0
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+-----------------------------------
+-----Stored Procedure Deposit------
+-----------------------------------
+
+CREATE OR REPLACE PROCEDURE deposit(account_id_variable BIGINT, widthdraw_amount REAL)
+AS
+$$
+DECLARE
+    new_trans_id_1 BIGINT;
+    new_trans_id_2 BIGINT;
+BEGIN
+    --Update balance of bank account
+    UPDATE account
+    SET balance = balance + amount_variable
+    WHERE account_id = account_id_variable;
+
+    --Update balance of bank vault
+    UPDATE account
+    SET balance = balance + amount_variable
+    WHERE account_id = 69690000016;
+
+    --Add record of withdraw for bank account
+    INSERT INTO transactions
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
+    VALUES
+    (DEFAULT, 'Deposit', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_1;
+
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_1_variable, new_trans_id_1);
+
+    --Add record of transaction for bank vault
+    INSERT INTO transactions
+    (transaction_id, transaction_type, transaction_time, transaction_amount)
+    VALUES
+    (DEFAULT, 'Deposit', CURRENT_TIMESTAMP, amount_variable) RETURNING transaction_id INTO new_trans_id_2;
+
+    INSERT INTO accountperformstransaction
+    (account_id, transaction_id)
+    VALUES
+    (account_id_2_variable, new_trans_id_2);
+
+    COMMIT;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -565,3 +681,4 @@ CREATE OR REPLACE PROCEDURE insertIntoBankHasAccount(bank_id_variable BIGINT, ac
     END;
     $$
     LANGUAGE 'plpgsql';
+
