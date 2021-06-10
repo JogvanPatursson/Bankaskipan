@@ -176,7 +176,7 @@ LANGUAGE 'plpgsql';
 ----Stored Procedure Withdraw------
 -----------------------------------
 
-CREATE OR REPLACE PROCEDURE widthdraw(account_id_variable BIGINT, amount_variable REAL)
+CREATE OR REPLACE PROCEDURE withdraw(account_id_variable BIGINT, amount_variable REAL)
 AS
 $$
 DECLARE
