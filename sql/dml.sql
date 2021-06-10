@@ -245,7 +245,7 @@ LANGUAGE 'plpgsql';
 -----Stored Procedure Deposit------
 -----------------------------------
 
-CREATE OR REPLACE PROCEDURE deposit(account_id_variable BIGINT, widthdraw_amount REAL)
+CREATE OR REPLACE PROCEDURE deposit(account_id_variable BIGINT, amount_variable REAL)
 AS
 $$
 DECLARE
@@ -271,7 +271,7 @@ BEGIN
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
     VALUES
-    (account_id_1_variable, new_trans_id_1);
+    (account_id_variable, new_trans_id_1);
 
     --Add record of transaction for bank vault
     INSERT INTO transactions
@@ -282,7 +282,7 @@ BEGIN
     INSERT INTO accountperformstransaction
     (account_id, transaction_id)
     VALUES
-    (account_id_2_variable, new_trans_id_2);
+    (69690000016, new_trans_id_2);
 
     COMMIT;
 END;
