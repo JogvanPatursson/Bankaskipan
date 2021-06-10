@@ -288,7 +288,8 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
     $$
     LANGUAGE 'plpgsql';
 
-    SELECT p.person_id, p.person_first_name, p.person_last_name
+CREATE OR REPLACE VIEW relatives_names AS
+SELECT p.person_id, p.person_first_name, p.person_last_name
     FROM person p
     WHERE p.person_id = (
         SELECT c.person_id
@@ -298,12 +299,17 @@ CREATE OR REPLACE FUNCTION showAllSpousesOrChildren(customer_id_variable varchar
                     FROM spouse s1, spouse s2
                     WHERE s1.spouse_1_id = 1));
 
-SELECT c.customer_id
-    FROM customer c
+CREATE OR REPLACE VIEW relatives_id AS
+SELECT c.customer_id, p.person_id
+    FROM customer c, person p
     WHERE customer_id = (
         SELECT s2.spouse_2_id
             FROM spouse s1, spouse s2
             WHERE s1.spouse_1_id = 1);
+
+SELECT a.person_first_name, a.person_last_name, b.person_id FROM relatives_names a
+JOIN relatives_id b
+ON a.person_id = b.person_id;
     
 
 --Show all accounts of child--    
