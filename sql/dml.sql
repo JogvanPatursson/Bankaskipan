@@ -237,19 +237,27 @@ CREATE OR REPLACE FUNCTION getAllTransactions(account_id_variable varchar(255))
     LANGUAGE 'plpgsql';
 
 --Show all accounts of person--
+DROP FUNCTION showAllAccounts(customer_id_variable BIGINT);
 CREATE OR REPLACE FUNCTION showAllAccounts(customer_id_variable BIGINT)
-    RETURNS TABLE(account_id_variable BIGINT)
+    RETURNS TABLE(account_id_variable BIGINT, balance_variable REAL)
     AS
     $$
+    DECLARE
+        account_record RECORD;
     BEGIN
-        SELECT account_id
-        FROM Account
-        WHERE account_id = (
-            SELECT account_id
-            FROM CustomerHasAccount
-            WHERE customer_id = customer_id_variable
-            )
-        );
+        FOR account_record IN (
+            SELECT account_id, balance
+            FROM Account
+            WHERE account_id IN (
+                SELECT account_id
+                FROM CustomerHasAccount
+                WHERE customer_id = customer_id_variable)
+        ) LOOP 
+            account_id_variable := account_record.account_id;
+            balance_variable := account_record.balance;
+
+            RETURN NEXT;
+        END LOOP;
     END;
     $$
     LANGUAGE 'plpgsql';
