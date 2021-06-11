@@ -385,16 +385,11 @@ CREATE OR REPLACE FUNCTION showAllRelatives(customer_id_variable BIGINT)
 CREATE OR REPLACE PROCEDURE calculateInterest()
 AS
 $$
-DECLARE
-    account_row RECORD;
-    interest_rate_variable REAL;
-    new_balance REAL;
 BEGIN
     UPDATE account a
     SET balance = a.balance + a.balance * t.interest_rate_value
     FROM accountType t
     WHERE a.account_type_id = t.account_type_id;
-
 END;
 $$
 LANGUAGE 'plpgsql';
